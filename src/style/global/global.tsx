@@ -18,7 +18,7 @@ export const GlobalStyle = createGlobalStyle`
     }
 
     body {
-        font-family: Roboto;
+        font-family: "Roboto";
     }
 
     a {

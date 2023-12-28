@@ -9,6 +9,7 @@ export const Input = styled.input`
     outline: none;
     background: transparent;
     border-bottom: 1px solid #d9d9d9;
+    font-family: "Roboto";
     font-variant-numeric: lining-nums proportional-nums;
     font-size: 18px;
     line-height: 24px;

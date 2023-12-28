@@ -9,7 +9,7 @@ export const Button = styled.button`
     border-radius: 6px;
     background: #009ee4;
     color: #fff;
-    font-family: Roboto-Regular;
+    font-family: "Roboto";
     font-size: 16px;
     line-height: 150%;
     transition: all 0.5s;

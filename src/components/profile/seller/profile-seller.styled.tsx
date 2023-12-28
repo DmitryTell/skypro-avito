@@ -28,7 +28,6 @@ export const SellerName = styled.p`
     color: #000;
     font-size: 20px;
     font-weight: 600;
-    font-style: normal;
     line-height: 200%;
     display: flex;
     flex-flow: column;
@@ -38,7 +37,6 @@ export const SellerText = styled.span`
     color: #5F5F5F;
     font-size: 16px;
     font-weight: 400;
-    font-style: normal;
     line-height: 200%;
 `;
 

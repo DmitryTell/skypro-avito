@@ -17,7 +17,6 @@ export const SellerMobileName = styled.p`
     gap: 6px;
     color: #000;
     font-size: 20px;
-    font-style: normal;
     font-weight: 600;
     line-height: 130%;
 `;
@@ -25,7 +24,6 @@ export const SellerMobileName = styled.p`
 export const SellerMobileText = styled.span`
     color: #5F5F5F;
     font-size: 16px;
-    font-style: normal;
     font-weight: 400;
     line-height: 130%;
 `;

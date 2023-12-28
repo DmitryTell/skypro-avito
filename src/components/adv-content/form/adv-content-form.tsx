@@ -1,7 +1,5 @@
 import { FC, ReactNode } from 'react';
 
-import { ShowPhoneButton } from '@shared/';
-
 import * as Styled from './adv-content-form.styled';
 
 

@@ -10,7 +10,6 @@ export const Search = styled.input`
     outline: none;
     font-size: 14px;
     font-weight: 400;
-    font-style: normal;
     line-height: 150%;
 
     &::placeholder {

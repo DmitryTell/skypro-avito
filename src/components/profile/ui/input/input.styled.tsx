@@ -4,7 +4,6 @@ import styled from 'styled-components';
 export const Label = styled.label`
     color: #c4c4c4;
     font-size: 16px;
-    font-style: normal;
     font-weight: 500;
     line-height: 150%;
 
@@ -23,7 +22,6 @@ export const Input = styled.input`
     outline: none;
     color: #000;
     font-size: 16px;
-    font-style: normal;
     font-weight: 400;
     line-height: 150%;
 

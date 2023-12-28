@@ -6,6 +6,10 @@ export const AdvList = styled.ul`
     flex-wrap: wrap;
     gap: 40px 26px;
 
+    @media (max-width: 1024px) {
+        justify-content: center;
+    }
+
     @media (max-width: 767px) {
         gap: 10px;
     }
@@ -52,10 +56,10 @@ export const AdvItemInfo = styled.div`
 `;
 
 export const AdvItemText = styled.span`
+    min-height: 52px;
     color: #009ee4;
     font-size: 22px;
     font-weight: 500;
-    font-style: normal;
     line-height: 120%;
 
     @media (max-width: 767px) {
@@ -67,7 +71,6 @@ export const AdvItemPrice = styled.span`
     color: #000;
     font-size: 22px;
     font-weight: 500;
-    font-style: normal;
     line-height: 150%;
 
     @media (max-width: 767px) {
@@ -84,7 +87,6 @@ export const AdvItemPlaceDate = styled.p`
         color: #5F5F5F;
         font-size: 16px;
         font-weight: 400;
-        font-style: normal;
         line-height: 130%;
 
         @media (max-width: 767px) {

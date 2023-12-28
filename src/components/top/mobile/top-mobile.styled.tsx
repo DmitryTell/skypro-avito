@@ -15,7 +15,6 @@ export const TopMobile = styled.div`
 export const TopMobileTitle = styled.h2`
     color: #000;
     font-size: 24px;
-    font-style: normal;
     font-weight: 500;
     line-height: 120%;
 `;

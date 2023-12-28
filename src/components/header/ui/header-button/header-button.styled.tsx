@@ -10,7 +10,6 @@ export const HeaderButton = styled.button`
     border: 1px solid #fff;
     color: #fff;
     font-size: 16px;
-    font-style: normal;
     font-weight: 400;
     line-height: 150%;
     transition: all 0.5s;

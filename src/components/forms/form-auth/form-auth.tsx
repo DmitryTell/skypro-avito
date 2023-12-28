@@ -13,7 +13,7 @@ export const FormAuth: FC<IFormAuth> = ({ children }) => (
   <Styled.Form>
     <Styled.FormLogo>
       <LogoAuth />
-      { children }
     </Styled.FormLogo>
+    { children }
   </Styled.Form>
 );
