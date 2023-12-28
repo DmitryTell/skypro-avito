@@ -19,11 +19,7 @@ const seller = {
 
 export const SellerProfile = () => (
   <Container>
-    <Top>
-      <Styled.ButtonBox>
-        <Button text="Вернуться на главную" type="button" onClick={ () => console.log('Click back to main') } />
-      </Styled.ButtonBox>
-    </Top>
+    <Top currentLocation="/profile-seller" />
     <TopMobile title="Профиль продавца" />
     <Styled.Main>
       <Styled.MainTitle>Профиль продавца</Styled.MainTitle>

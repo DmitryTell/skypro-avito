@@ -21,11 +21,7 @@ const user = {
 
 export const Profile = () => (
   <Container>
-    <Top>
-      <Styled.ButtonBox>
-        <Button text="Вернуться на главную" type="button" onClick={ () => console.log('Click back to main') } />
-      </Styled.ButtonBox>
-    </Top>
+    <Top currentLocation="/profile" />
     <Styled.Main>
       <Styled.MainTitle>Здравствуйте, { user.name }</Styled.MainTitle>
       <ProfileSettings user={ user } />

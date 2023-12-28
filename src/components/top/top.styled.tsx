@@ -15,3 +15,8 @@ export const Top = styled.div`
 export const TopLogo = styled.div`
     margin-right: 60px;
 `;
+
+export const TopButtonBox = styled.div`
+    width: 241px;
+    height: 50px;
+`;
