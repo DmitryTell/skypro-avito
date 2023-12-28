@@ -19,6 +19,15 @@ export const GlobalStyle = createGlobalStyle`
 
     body {
         font-family: "Roboto";
+        scrollbar-width: 0;
+
+        &::-webkit-scrollbar {
+            width: 0;
+        }
+
+        &::-moz-scrollbar {
+            width: 0;
+        }
     }
 
     a {
