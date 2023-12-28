@@ -47,7 +47,6 @@ export const ModalTitle = styled.h2`
     color: #000;
     font-size: 32px;
     font-weight: 500;
-    font-style: normal;
     line-height: 220%;
 
     @media (max-width: 767px) {

@@ -21,7 +21,6 @@ export const FormTitlebox = styled.div`
 export const FormTitle = styled.h2`
     color: #000;
     font-size: 32px;
-    font-style: normal;
     font-weight: 700;
     line-height: 140%;
 
@@ -39,7 +38,6 @@ export const FormTextBox = styled.div`
 export const FormText = styled.span`
     color: #5f5f5f;
     font-size: 16px;
-    font-style: normal;
     font-weight: 400;
     line-height: 130%;
 
@@ -51,10 +49,8 @@ export const FormText = styled.span`
 
 export const FormLink = styled.a`
     color: #009ee4;
-    font-family: Roboto;
     font-size: 16px;
     font-weight: 400;
-    font-style: normal;
     line-height: 130%;
     transition: all 0.5s;
 
@@ -80,7 +76,6 @@ export const FormPricePhoneBox = styled.div`
 export const FormPrice = styled.span`
     color: #000;
     font-size: 28px;
-    font-style: normal;
     font-weight: 700;
     line-height: 140%;
 
@@ -126,7 +121,6 @@ export const FormUserLink = styled.a`
 export const FormUserText = styled.span`
     color: #5f5f5f;
     font-size: 16px;
-    font-style: normal;
     font-weight: 400;
     line-height: 200%;
 

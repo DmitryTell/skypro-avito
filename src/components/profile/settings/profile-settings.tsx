@@ -53,7 +53,7 @@ export const ProfileSettings: FC<IProfileSettings> = ({ user }) => (
           forName="settings-input"
           name="Телефон"
           type="tel"
-          value={ user.city }
+          value={ user.phone }
           onChange={ (e) => console.log(`Usercity: ${e.target.value}`) }
         />
       </Styled.SettingsFormInputBox>

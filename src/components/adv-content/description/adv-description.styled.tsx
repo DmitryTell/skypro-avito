@@ -15,7 +15,6 @@ export const Description = styled.div`
 export const DescriptionTitle = styled.h2`
     color: #000;
     font-size: 32px;
-    font-style: normal;
     font-weight: 500;
     line-height: 220%;
 
@@ -29,7 +28,6 @@ export const DescriptionTitle = styled.h2`
 export const DescriptionText = styled.p`
     color: #000;
     font-size: 16px;
-    font-style: normal;
     font-weight: 400;
     line-height: 150%;
 

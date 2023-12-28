@@ -22,7 +22,7 @@ export const ProfileSeller: FC<IProfileSeller> = ({ seller }) => (
         <Styled.SellerText>Продает товары с { seller.date }</Styled.SellerText>
       </Styled.SellerName>
       <Styled.SellerPhoneBox>
-        <ShowPhoneButton phone={ seller.phone } text="Показать телефон" type="button" onClick={ () => console.log('Show phone') } />
+        <ShowPhoneButton phone={ seller.phone } type="button" onClick={ () => console.log('Show phone') } />
       </Styled.SellerPhoneBox>
     </Styled.SellerInfo>
   </Styled.Seller>

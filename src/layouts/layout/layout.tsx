@@ -10,7 +10,7 @@ export const Layout = () => {
 
   return (
     <Styled.Wrapper>
-      <Header currentLocation={ pathname } />
+      <Header />
       <HeaderMobile currentLocation={ pathname } />
       <Outlet />
     </Styled.Wrapper>

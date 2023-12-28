@@ -5,12 +5,14 @@ export const ShowPhone = styled.button`
     width: 100%;
     height: 100%;
     background: #009ee4;
+    border: none;
     border-radius: 6px;
     display: flex;
     flex-flow: column;
     justify-content: center;
     align-items: center;
     color: #fff;
+    font-family: "Roboto";
     font-style: normal;
     line-height: 140%;
     transition: all 0.5s;

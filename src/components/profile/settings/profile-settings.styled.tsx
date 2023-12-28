@@ -24,7 +24,6 @@ export const SettingsTitle = styled.h2`
     grid-column: 1 / 3;
     color: #000;
     font-size: 32px;
-    font-style: normal;
     font-weight: 500;
     line-height: 220%;
 
@@ -64,7 +63,6 @@ export const SettingsPicture = styled.div`
 export const SettingsLink = styled.a`
     color: #009ee4;
     font-size: 16px;
-    font-style: normal;
     font-weight: 400;
     line-height: 150%;
     transition: all 0.5s;

@@ -10,4 +10,12 @@ export const Container = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
+
+    @media (max-width: 1024px) {
+        padding-top: 0;
+    }
+
+    @media (max-width: 767px) {
+        flex-flow: column;
+    }
 `;

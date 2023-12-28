@@ -1,7 +1,7 @@
 import { FC } from 'react';
 
 import { ISeller } from '@interface/';
-import { ShowPhoneButton } from '@/shared';
+import { ShowPhoneButton } from '@shared/';
 
 import * as Styled from './profile-seller-mobile.styled';
 
@@ -21,7 +21,7 @@ export const ProfileSellerMobile: FC<IProfileSellerMobile> = ({ seller }) => (
       { Boolean(seller.img) && <img alt="Seller img" src={ seller.img } /> }
     </Styled.SellerMobilePicture>
     <Styled.SellerMobilePhoneBox>
-      <ShowPhoneButton phone={ seller.phone } text="Показать телефон" type="button" onClick={ () => console.log('Click show phone') } />
+      <ShowPhoneButton phone={ seller.phone } type="button" onClick={ () => console.log('Click show phone') } />
     </Styled.SellerMobilePhoneBox>
   </Styled.SellerMobile>
 );
