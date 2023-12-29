@@ -1,11 +1,6 @@
 import styled from 'styled-components';
 
 
-export const ButtonBox = styled.div`
-    width: 241px;
-    height: 50px;
-`;
-
 export const Main = styled.main`
     display: flex;
     flex-flow: column;

@@ -9,7 +9,7 @@ import * as Styled from './home.styled';
 
 export const Home = () => (
   <Container>
-    <Top>
+    <Top currentLocation="/">
       <Styled.TopBox>
         <SearchInput placeholder="Поиск по объявлениям" onChange={ (e) => console.log(`Search: ${e.target.value}`) } />
         <Styled.ButtonBox>

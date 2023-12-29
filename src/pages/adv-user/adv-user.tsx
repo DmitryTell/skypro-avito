@@ -23,11 +23,7 @@ const MockRewiews = [
 export const AdvUser = () => (
   <Container>
     <PictureBoxMobile images={ [] } />
-    <Top>
-      <Styled.ButtonBox>
-        <Button text="Вернуться на главную" type="button" onClick={ () => console.log('Click back to main') } />
-      </Styled.ButtonBox>
-    </Top>
+    <Top currentLocation="/adv-user" />
     <Styled.Main>
       <Styled.MainContent>
         <PictureBox images={ [] } />
