@@ -2,19 +2,19 @@ import { Container } from '@layouts/';
 import {
   Top, TopMobile, ProfileSeller, ProfileSellerMobile, AdvList, Footer
 } from '@components/';
-import { Button } from '@shared/';
 
 import * as Styled from './profile-seller.styled';
-import { ITEMS } from '../home/mock/items';
 
 
 // Mock data so far
 const seller = {
+  id: 5,
   name: 'Vasya Zalupkin',
+  email: 'vasya.zalupa@vrotebaka.hui',
   city: 'Huiti',
-  date: 'октября 2022',
+  sells_from: 'октября 2022',
   phone: '+78008000808',
-  img: ''
+  avatar: ''
 };
 
 export const SellerProfile = () => (
@@ -26,7 +26,7 @@ export const SellerProfile = () => (
       <ProfileSeller seller={ seller } />
       <ProfileSellerMobile seller={ seller } />
       <Styled.MainSubtitle>Мои товары</Styled.MainSubtitle>
-      <AdvList items={ ITEMS } />
+      <AdvList isLoading items={ [] } />
     </Styled.Main>
     <Footer />
   </Container>

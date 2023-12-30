@@ -49,4 +49,22 @@ export const GlobalStyle = createGlobalStyle`
     button {
         cursor: pointer;
     }
+
+    @-webkit-keyframes adv-animation {
+        0% {
+            background: #c4c4c4;
+        }
+        100% {
+            background: #f0f0f0;
+        }
+    }
+
+    @keyframes adv-animation {
+        0% {
+            background: #c4c4c4;
+        }
+        100% {
+            background: #f0f0f0;
+        }
+    }
 `;

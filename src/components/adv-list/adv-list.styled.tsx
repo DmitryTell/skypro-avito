@@ -43,6 +43,12 @@ export const AdvItemImg = styled.div`
     height: 270px;
     background-color: #f0f0f0;
 
+    & img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
     @media (max-width: 767px) {
         width: 100%;
         height: 132px;
