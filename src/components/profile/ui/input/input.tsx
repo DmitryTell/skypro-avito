@@ -7,7 +7,7 @@ interface IInput extends HTMLProps<HTMLInputElement> {
   type: 'text';
   forName: string;
   name: string;
-  value: string;
+  value: string | undefined;
   onChange: React.ChangeEventHandler<HTMLInputElement>;
 }
 

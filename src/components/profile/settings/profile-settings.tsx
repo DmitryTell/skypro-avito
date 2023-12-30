@@ -16,7 +16,7 @@ export const ProfileSettings: FC<IProfileSettings> = ({ user }) => (
     <Styled.SettingsTitle>Настройки профиля</Styled.SettingsTitle>
     <Styled.SettingsPictureBox>
       <Styled.SettingsPicture>
-        { Boolean(user.img) && <img alt="User img" src={ user.img } /> }
+        { Boolean(user.avatar) && <img alt="User img" src={ user.avatar } /> }
       </Styled.SettingsPicture>
       <Styled.SettingsLink href="/#">
         Изменить
@@ -35,7 +35,7 @@ export const ProfileSettings: FC<IProfileSettings> = ({ user }) => (
           forName="settings-input"
           name="Фамилия"
           type="text"
-          value={ user.surname }
+          value={ user?.surname ?? '' }
           onChange={ (e) => console.log(`Usersurname: ${e.target.value}`) }
         />
       </Styled.SettingsFormInputBox>

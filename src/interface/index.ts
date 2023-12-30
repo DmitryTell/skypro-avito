@@ -1,3 +1,2 @@
-export * from './adv-items';
+export * from './ad';
 export * from './user';
-export * from './seller';

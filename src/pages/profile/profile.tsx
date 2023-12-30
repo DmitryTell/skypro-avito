@@ -2,9 +2,7 @@ import { Container } from '@layouts/';
 import {
   Top, ProfileSettings, AdvList, Footer
 } from '@components/';
-import { Button } from '@shared/';
 
-import { ITEMS } from '../home/mock/items';
 import * as Styled from './profile.styled';
 
 
@@ -16,7 +14,8 @@ const user = {
   surname: 'Voychenko',
   city: 'Ryazan',
   phone: '+79002453216',
-  img: '',
+  avatar: '',
+  sells_from: '25.05.2020'
 };
 
 export const Profile = () => (
@@ -26,7 +25,7 @@ export const Profile = () => (
       <Styled.MainTitle>Здравствуйте, { user.name }</Styled.MainTitle>
       <ProfileSettings user={ user } />
       <Styled.MainSubtitle>Мои товары</Styled.MainSubtitle>
-      <AdvList items={ ITEMS } />
+      <AdvList isLoading items={ [] } />
     </Styled.Main>
     <Footer />
   </Container>

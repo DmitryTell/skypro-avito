@@ -1,13 +1,13 @@
 import { FC } from 'react';
 
-import { ISeller } from '@interface/';
+import { IUser } from '@interface/';
 import { ShowPhoneButton } from '@shared/';
 
 import * as Styled from './profile-seller-mobile.styled';
 
 
 interface IProfileSellerMobile {
-  seller: ISeller;
+  seller: IUser;
 }
 
 export const ProfileSellerMobile: FC<IProfileSellerMobile> = ({ seller }) => (
@@ -15,10 +15,10 @@ export const ProfileSellerMobile: FC<IProfileSellerMobile> = ({ seller }) => (
     <Styled.SellerMobileName>
       { seller.name }
       <Styled.SellerMobileText>{ seller.city }</Styled.SellerMobileText>
-      <Styled.SellerMobileText>Продает товары с { seller.date }</Styled.SellerMobileText>
+      <Styled.SellerMobileText>Продает товары с { seller.sells_from }</Styled.SellerMobileText>
     </Styled.SellerMobileName>
     <Styled.SellerMobilePicture>
-      { Boolean(seller.img) && <img alt="Seller img" src={ seller.img } /> }
+      { Boolean(seller.avatar) && <img alt="Seller img" src={ seller.avatar } /> }
     </Styled.SellerMobilePicture>
     <Styled.SellerMobilePhoneBox>
       <ShowPhoneButton phone={ seller.phone } type="button" onClick={ () => console.log('Click show phone') } />
