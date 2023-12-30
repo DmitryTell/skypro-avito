@@ -42,3 +42,23 @@ export const MainTitle = styled.h1`
         line-height: 120%;
     }
 `;
+
+export const MainErrorText = styled.p`
+    width: 100%;
+    height: 200px;
+    display: flex;
+    align-items: center;
+    font-size: 32px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 220%;
+
+    @media (max-width: 1024px) {
+        text-align: center;
+    }
+
+    @media (max-width: 767px) {
+        font-size: 20px;
+        line-height: 120%;
+    }
+`;
