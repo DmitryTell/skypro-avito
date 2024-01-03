@@ -2,6 +2,10 @@ import { addZeroBefore } from './add-zero-before';
 
 
 export const formatDate = (str: string) => {
+  if (!str) {
+    return 'Неизвестно';
+  }
+
   const now = new Date();
   const past = new Date(str);
   const difference = Number(now) - Number(past);

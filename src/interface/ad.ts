@@ -1,7 +1,7 @@
 import { IUser } from './user';
 
 
-interface IImg {
+export interface IImg {
   id: number;
   ad_id: number;
   url: string;

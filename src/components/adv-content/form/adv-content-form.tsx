@@ -1,49 +1,43 @@
 import { FC, ReactNode } from 'react';
 
+import { IComment, IUser } from '@interface/';
+import { formatSellsFromDate } from '@utils/';
+
 import * as Styled from './adv-content-form.styled';
 
 
 interface IAdvContentForm {
-  name: string;
-  city: string;
+  title: string;
   date: string;
-  price: string;
-  seller: {
-    id: number;
-    name: string;
-    img: string;
-    date: string;
-  };
-  reviews: {
-    author: string;
-    text: string;
-  }[];
+  comments: IComment[];
+  price: number;
+  user: IUser;
   children: ReactNode;
 }
 
 export const AdvContentForm: FC<IAdvContentForm> = ({
-  name, city, date, price, seller, reviews, children
+  title, date, comments, price, user, children
 }) => (
   <Styled.Form>
     <Styled.FormTitlebox>
-      <Styled.FormTitle>{ name }</Styled.FormTitle>
+      <Styled.FormTitle>{ title }</Styled.FormTitle>
       <Styled.FormTextBox>
         <Styled.FormText>{ date }</Styled.FormText>
-        <Styled.FormText>{ city }</Styled.FormText>
-        <Styled.FormLink>{ reviews?.length } отзывов</Styled.FormLink>
+        <Styled.FormText>{ user.city }</Styled.FormText>
+        <Styled.FormLink>{ comments?.length } отзывов</Styled.FormLink>
       </Styled.FormTextBox>
     </Styled.FormTitlebox>
     <Styled.FormPricePhoneBox>
-      <Styled.FormPrice>{ price }</Styled.FormPrice>
+      <Styled.FormPrice>{ price } ₽</Styled.FormPrice>
       { children }
     </Styled.FormPricePhoneBox>
     <Styled.FormUserBox>
       <Styled.FormUserAva>
-        { Boolean(seller.img) && <img alt="User ava" src={ seller.img } /> }
+        { Boolean(user.avatar) && <img alt="User ava" src={ `${process.env.REACT_APP_API_URL}${user.avatar}` } /> }
       </Styled.FormUserAva>
       <Styled.FormUserName>
-        <Styled.FormUserLink>{ seller.name }</Styled.FormUserLink>
-        <Styled.FormUserText>Продает товары с { seller.date }</Styled.FormUserText>
+        <Styled.FormUserLink>{ user.name }</Styled.FormUserLink>
+        <Styled.FormUserText>Продает товары с { formatSellsFromDate(user.sells_from) }</Styled.FormUserText>
       </Styled.FormUserName>
     </Styled.FormUserBox>
   </Styled.Form>

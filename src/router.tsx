@@ -11,7 +11,7 @@ export const AppRouter = () => (
   <Routes>
     <Route element={ <Layout /> }>
       <Route index element={ <Home /> } path="/" />
-      <Route element={ <Adv /> } path="/adv" />
+      <Route element={ <Adv /> } path="/adv/:id" />
       <Route element={ <SellerProfile /> } path="/profile-seller" />
       <Route element={ <RequireAuth /> }>
         <Route element={ <Profile /> } path="/profile" />

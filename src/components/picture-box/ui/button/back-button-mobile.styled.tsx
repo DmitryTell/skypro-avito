@@ -6,4 +6,5 @@ export const Button = styled.button`
     top: 20px;
     left: 25px;
     border: none;
+    background: transparent;
 `;

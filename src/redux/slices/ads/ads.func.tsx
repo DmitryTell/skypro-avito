@@ -14,9 +14,12 @@ export const adsApi = createApi({
       query: () => '/ads',
       providesTags: ['Ads'],
     }),
+    getAdById: builder.query<IAd, string>({
+      query: (id: string) => `/ads/${id}`,
+    }),
   }),
 });
 
 export const {
-  useGetAllAdsQuery,
+  useGetAllAdsQuery, useGetAdByIdQuery
 } = adsApi;
