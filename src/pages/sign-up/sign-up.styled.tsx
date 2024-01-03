@@ -2,7 +2,6 @@ import styled from 'styled-components';
 
 
 export const Inputs = styled.div`
-    margin-bottom: 60px;
     display: flex;
     flex-flow: column;
     align-items: center;
@@ -15,9 +14,25 @@ export const Inputs = styled.div`
 
     @media (max-width: 767px) {
         width: 100%;
-        margin-bottom: 40px;
         gap: 14px;
     }
+`;
+
+export const ErrorBox = styled.div`
+    width: 100%;
+    min-height: 80px;
+    padding: 20px 0 10px;
+
+    @media (max-width: 767px) {
+        min-height: 60px;
+    }
+`;
+
+export const ErrorText = styled.span`
+    color: #fa1010;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
 `;
 
 export const Buttons = styled.div`
