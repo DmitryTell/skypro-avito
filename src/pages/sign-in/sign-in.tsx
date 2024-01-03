@@ -16,7 +16,7 @@ export const SignIn = () => {
       <HeaderMobile currentLocation="/login" />
       <FormAuth>
         <Styled.Inputs>
-          <Input placeholder="email" type="email" onChange={ (e) => console.log(`Email: ${e.target.value}`) } />
+          <Input placeholder="Email" type="email" onChange={ (e) => console.log(`Email: ${e.target.value}`) } />
           <Input placeholder="Пароль" type="password" onChange={ (e) => console.log(`Password: ${e.target.value}`) } />
         </Styled.Inputs>
         <Styled.Buttons>
