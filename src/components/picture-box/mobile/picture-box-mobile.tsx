@@ -25,7 +25,7 @@ export const PictureBoxMobile: FC<IPictureBoxMobile> = ({ images }) => {
           { Boolean(images?.length) && images.map((image, index) => (
             <Styled.BoxDote
               key={ String(image.id) }
-              bgColor={ index === currentIndex }
+              $bgColor={ index === currentIndex }
               onClick={ () => setCurrentIndex(index) }
             />
           )) }

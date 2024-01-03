@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 
 interface IBoxPictureProps {
-  hasBorder: boolean;
+  $hasBorder: boolean;
 }
 
 export const Box = styled.div`
@@ -36,7 +36,7 @@ export const BoxPicture = styled.div<IBoxPictureProps>`
     width: 88px;
     height: 88px;
     background: #f0f0f0;
-    border: ${(props) => (props.hasBorder ? '2px solid #009EE4' : 'none')};
+    border: ${(props) => (props.$hasBorder ? '2px solid #009EE4' : 'none')};
     cursor: pointer;
 
     & img {

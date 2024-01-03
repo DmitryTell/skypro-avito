@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 
 interface IBoxDoteProps {
-  bgColor: boolean;
+  $bgColor: boolean;
 }
 
 export const Box = styled.div`
@@ -52,7 +52,7 @@ export const BoxDotes = styled.div`
 export const BoxDote = styled.div<IBoxDoteProps>`
     width: 8px;
     height: 8px;
-    background: ${(props) => (props.bgColor ? '#fff' : '#d2cccc')};
+    background: ${(props) => (props.$bgColor ? '#fff' : '#d2cccc')};
     border-radius: 50%;
-    border: 1px solid #fff;
+    border: 2px solid #fff;
 `;

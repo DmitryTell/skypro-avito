@@ -21,7 +21,7 @@ export const PictureBox: FC<IPictureBox> = ({ images }) => {
         { images.map((img, index) => (
           <Styled.BoxPicture
             key={ String(index + 1) }
-            hasBorder={ index === currentIndex }
+            $hasBorder={ index === currentIndex }
             onClick={ () => setCurrentIndex(index) }
           >
             { Boolean(img?.url) && <img alt="Adv" src={ `${process.env.REACT_APP_API_URL}${img.url}` } /> }
