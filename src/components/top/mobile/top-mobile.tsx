@@ -1,4 +1,5 @@
 import { FC } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import { BackButton } from '@shared/';
 
@@ -9,9 +10,13 @@ interface ITopMobile {
   title: string;
 }
 
-export const TopMobile: FC<ITopMobile> = ({ title }) => (
-  <Styled.TopMobile>
-    <BackButton type="button" onClick={ () => console.log('Click to back') } />
-    <Styled.TopMobileTitle>{ title }</Styled.TopMobileTitle>
-  </Styled.TopMobile>
-);
+export const TopMobile: FC<ITopMobile> = ({ title }) => {
+  const navigate = useNavigate();
+
+  return (
+    <Styled.TopMobile>
+      <BackButton type="button" onClick={ () => navigate('/', { replace: true }) } />
+      <Styled.TopMobileTitle>{ title }</Styled.TopMobileTitle>
+    </Styled.TopMobile>
+  );
+};

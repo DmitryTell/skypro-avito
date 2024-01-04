@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 
@@ -102,7 +103,7 @@ export const FormUserName = styled.p`
     flex-flow: column;
 `;
 
-export const FormUserLink = styled.a`
+export const FormUserLink = styled(Link)`
     color: #009ee4;
     font-size: 20px;
     font-weight: 600;

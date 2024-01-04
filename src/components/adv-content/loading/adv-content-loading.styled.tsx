@@ -1,5 +1,10 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
+
+const animation = css`
+    -webkit-animation: adv-animation 1s linear infinite alternate both;
+    animation: adv-animation 1s linear infinite alternate both;
+`;
 
 export const Form = styled.div`
     display: flex;
@@ -21,8 +26,7 @@ export const FormTitlebox = styled.div`
 export const FormTitle = styled.div`
     width: 320px;
     height: 32px;
-    -webkit-animation: adv-animation 1s linear infinite alternate both;
-    animation: adv-animation 1s linear infinite alternate both;
+    ${animation}
 
     @media (max-width: 767px) {
        height: 18px;
@@ -38,8 +42,7 @@ export const FormTextBox = styled.div`
 export const FormText = styled.div`
     width: 320px;
     height: 16px;
-    -webkit-animation: adv-animation 1s linear infinite alternate both;
-    animation: adv-animation 1s linear infinite alternate both;
+    ${animation}
 
     @media (max-width: 767px) {
         height: 14px;
@@ -59,8 +62,7 @@ export const FormPricePhoneBox = styled.div`
 export const FormPrice = styled.div`
     width: 320px;
     height: 28px;
-    -webkit-animation: adv-animation 1s linear infinite alternate both;
-    animation: adv-animation 1s linear infinite alternate both;
+    ${animation}
 
     @media (max-width: 767px) {
         height: 18px;
@@ -76,8 +78,7 @@ export const FormUserAva = styled.div`
     width: 40px;
     height: 40px;
     border-radius: 50%;
-    -webkit-animation: adv-animation 1s linear infinite alternate both;
-    animation: adv-animation 1s linear infinite alternate both;
+    ${animation}
 `;
 
 export const FormUserName = styled.div`
@@ -88,8 +89,7 @@ export const FormUserName = styled.div`
 export const FormUserText = styled.div`
     width: 270px;
     height: 16px;
-    -webkit-animation: adv-animation 1s linear infinite alternate both;
-    animation: adv-animation 1s linear infinite alternate both;
+    ${animation}
 
     @media (max-width: 767px) {
         height: 14px;
@@ -110,8 +110,7 @@ export const Description = styled.div`
 export const DescriptionTitle = styled.div`
     width: 100%;
     height: 32px;
-    -webkit-animation: adv-animation 1s linear infinite alternate both;
-    animation: adv-animation 1s linear infinite alternate both;
+    ${animation}
 
     @media (max-width: 767px) {
         height: 18px;
@@ -121,8 +120,7 @@ export const DescriptionTitle = styled.div`
 export const DescriptionText = styled.div`
     width: 100%;
     height: 16px;
-    -webkit-animation: adv-animation 1s linear infinite alternate both;
-    animation: adv-animation 1s linear infinite alternate both;
+    ${animation}
 
     @media (max-width: 767px) {
         height: 14px;

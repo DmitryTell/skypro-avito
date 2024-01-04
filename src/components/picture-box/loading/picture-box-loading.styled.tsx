@@ -1,5 +1,10 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
+
+const animation = css`
+    -webkit-animation: adv-animation 1s linear infinite alternate both;
+    animation: adv-animation 1s linear infinite alternate both;
+`;
 
 export const Box = styled.div`
     display: flex;
@@ -14,8 +19,7 @@ export const Box = styled.div`
 export const BoxMainPicture = styled.div`
     width: 480px;
     height: 480px;
-    -webkit-animation: adv-animation 1s linear infinite alternate both;
-    animation: adv-animation 1s linear infinite alternate both;
+    ${animation}
 `;
 
 export const BoxPictures = styled.div`
@@ -26,8 +30,7 @@ export const BoxPictures = styled.div`
 export const BoxPicture = styled.div`
     width: 88px;
     height: 88px;
-    -webkit-animation: adv-animation 1s linear infinite alternate both;
-    animation: adv-animation 1s linear infinite alternate both;
+    ${animation}
 `;
 
 export const BoxMob = styled.div`
@@ -45,6 +48,5 @@ export const BoxContainerMob = styled.div`
     position: relative;
     flex-grow: 1;
     min-height: 320px;
-    -webkit-animation: adv-animation 1s linear infinite alternate both;
-    animation: adv-animation 1s linear infinite alternate both;
+    ${animation}
 `;

@@ -60,20 +60,12 @@ export const Adv = () => {
     },
   });
   const [comments, setComments] = useState<IComment[] | []>([]);
-  const [phone, setPhone] = useState<string>('+XXXXXXXXXX');
-  const [isVisible, setIsVisible] = useState<boolean>(false);
 
   useEffect(() => {
     if (adById) {
       setCurrentAd(adById);
     }
   }, [adById]);
-
-  useEffect(() => {
-    if (isVisible) {
-      setPhone(currentAd.user.phone);
-    }
-  }, [currentAd.user.phone, isVisible]);
 
   useEffect(() => {
     if (commentsById) {
@@ -106,7 +98,7 @@ export const Adv = () => {
               >
                 { mockCurrentUserId !== currentAd?.user_id ? (
                   <Styled.MainPhoneButtonBox>
-                    <ShowPhoneButton phone={ phone } type="button" onClick={ () => setIsVisible(true) } />
+                    <ShowPhoneButton disabled={ isLoading } userPhone={ currentAd?.user?.phone } />
                   </Styled.MainPhoneButtonBox>
                 ) : (
                   <Styled.MainButtons>

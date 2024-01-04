@@ -21,9 +21,16 @@ export const adsApi = createApi({
       query: (id: string) => `/ads/${id}/comments`,
       providesTags: ['Comments'],
     }),
+    getSellerAdsByUserId: builder.query<IAd[], string>({
+      query: (userId: string) => `/ads?user_id=${userId}`,
+      providesTags: ['Ads'],
+    }),
   }),
 });
 
 export const {
-  useGetAllAdsQuery, useGetAdByIdQuery, useGetCommentsByIdQuery
+  useGetAllAdsQuery,
+  useGetAdByIdQuery,
+  useGetCommentsByIdQuery,
+  useGetSellerAdsByUserIdQuery,
 } = adsApi;

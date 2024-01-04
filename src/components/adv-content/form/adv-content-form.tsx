@@ -47,7 +47,7 @@ export const AdvContentForm: FC<IAdvContentForm> = ({
           { Boolean(user.avatar) && <img alt="User ava" src={ `${process.env.REACT_APP_API_URL}${user.avatar}` } /> }
         </Styled.FormUserAva>
         <Styled.FormUserName>
-          <Styled.FormUserLink>{ user.name }</Styled.FormUserLink>
+          <Styled.FormUserLink to={ `/profile-seller/${user.id}` }>{ user.name }</Styled.FormUserLink>
           <Styled.FormUserText>Продает товары с { formatSellsFromDate(user.sells_from) }</Styled.FormUserText>
         </Styled.FormUserName>
       </Styled.FormUserBox>

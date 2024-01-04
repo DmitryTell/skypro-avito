@@ -6,11 +6,8 @@ export const AdvList = styled.ul`
     flex-wrap: wrap;
     gap: 40px 26px;
 
-    @media (max-width: 1024px) {
-        justify-content: center;
-    }
-
     @media (max-width: 767px) {
+        justify-content: center;
         gap: 10px;
     }
 `;

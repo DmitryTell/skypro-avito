@@ -1,5 +1,10 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
+
+const animation = css`
+    -webkit-animation: adv-animation 1s linear infinite alternate both;
+    animation: adv-animation 1s linear infinite alternate both;
+`;
 
 export const List = styled.ul`
     display: flex;
@@ -32,8 +37,7 @@ export const Item = styled.li`
 export const ItemImg = styled.div`
     width: 270px;
     height: 270px;
-    -webkit-animation: adv-animation 1s linear infinite alternate both;
-    animation: adv-animation 1s linear infinite alternate both;
+    ${animation}
 
     @media (max-width: 767px) {
         width: 100%;
@@ -50,8 +54,7 @@ export const ItemInfo = styled.div`
 export const ItemText = styled.div`
     width: 100%;
     height: 22px;
-    -webkit-animation: adv-animation 1s linear infinite alternate both;
-    animation: adv-animation 1s linear infinite alternate both;
+    ${animation}
 
     @media (max-width: 767px) {
         height: 14px;
@@ -61,8 +64,7 @@ export const ItemText = styled.div`
 export const ItemPrice = styled.div`
     width: 100%;
     height: 22px;
-    -webkit-animation: adv-animation 1s linear infinite alternate both;
-    animation: adv-animation 1s linear infinite alternate both;
+    ${animation}
 
     @media (max-width: 767px) {
         height: 16px;
@@ -77,8 +79,7 @@ export const ItemPlaceDate = styled.div`
     & div {
         width: 100%;
         height: 16px;
-        -webkit-animation: adv-animation 1s linear infinite alternate both;
-        animation: adv-animation 1s linear infinite alternate both;
+        ${animation}
 
         @media (max-width: 767px) {
             height: 12px;
