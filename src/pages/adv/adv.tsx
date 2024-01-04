@@ -13,12 +13,16 @@ import {
   PBLoadingMob,
   ACLoadingForm,
   ACLoadingDescription,
+  Backdrop,
 } from '@components/';
 import { Button, ShowPhoneButton } from '@shared/';
 import { formatDate } from '@utils/';
-import { IAd } from '@interface/';
-import { useGetAdByIdQuery } from '@redux/';
+import { IAd, IComment } from '@interface/';
+import { useGetAdByIdQuery, getStateAds, useGetCommentsByIdQuery } from '@redux/';
+import { useAppSelector } from '@hook/';
 
+import { Comments } from './comments';
+// eslint-disable-next-line import/max-dependencies
 import * as Styled from './adv.styled';
 
 
@@ -26,8 +30,10 @@ const mockCurrentUserId = null;
 
 export const Adv = () => {
   const { id } = useParams();
+  const { isOpenedModal } = useAppSelector(getStateAds);
 
   const { data: adById, isLoading } = useGetAdByIdQuery(id || '0');
+  const { data: commentsById } = useGetCommentsByIdQuery(id || '0');
 
   const [currentAd, setCurrentAd] = useState<IAd>({
     id: 0,
@@ -53,7 +59,8 @@ export const Adv = () => {
       phone: '',
     },
   });
-  const [phone, setPhone] = useState<string>('+XX XXXXXXXX');
+  const [comments, setComments] = useState<IComment[] | []>([]);
+  const [phone, setPhone] = useState<string>('+XXXXXXXXXX');
   const [isVisible, setIsVisible] = useState<boolean>(false);
 
   useEffect(() => {
@@ -67,6 +74,14 @@ export const Adv = () => {
       setPhone(currentAd.user.phone);
     }
   }, [currentAd.user.phone, isVisible]);
+
+  useEffect(() => {
+    if (commentsById) {
+      const result = Object.values(commentsById);
+
+      setComments(result);
+    }
+  }, [commentsById]);
 
   return (
     <Container>
@@ -83,7 +98,7 @@ export const Adv = () => {
             <>
               <PictureBox images={ currentAd?.images } />
               <AdvContentForm
-                comments={ [] }
+                comments={ comments }
                 date={ formatDate(currentAd?.created_on) }
                 price={ currentAd?.price }
                 title={ currentAd?.title }
@@ -110,6 +125,12 @@ export const Adv = () => {
         { isLoading ? <ACLoadingDescription /> : <AdvDescription description={ currentAd?.description } /> }
       </Styled.Main>
       <Footer />
+      { isOpenedModal && (
+        <>
+          <Backdrop />
+          <Comments comments={ comments } currentUserId={ mockCurrentUserId } />
+        </>
+      ) }
     </Container>
   );
 };

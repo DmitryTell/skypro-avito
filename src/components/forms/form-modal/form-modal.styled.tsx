@@ -2,17 +2,14 @@ import styled from 'styled-components';
 
 
 export const Modal = styled.div`
-    width: 600px;
+    width: 100%;
     padding: 20px 50px 42px;
-    background: #fff;
-    border-radius: 12px;
     display: flex;
     flex-flow: column;
-    gap: 10px;
+    gap: 15px;
 
     @media (max-width: 1024px) {
         width: 100%;
-        border-radius: 0;
     }
 
     @media (max-width: 767px) {

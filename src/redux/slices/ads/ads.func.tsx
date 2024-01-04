@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
-import { IAd } from '@interface/';
+import { IAd, IComment } from '@interface/';
 
 
 export const adsApi = createApi({
@@ -8,7 +8,7 @@ export const adsApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: process.env.REACT_APP_API_URL,
   }),
-  tagTypes: ['Ads'],
+  tagTypes: ['Ads', 'Comments'],
   endpoints: (builder) => ({
     getAllAds: builder.query<IAd[], number>({
       query: () => '/ads',
@@ -17,9 +17,13 @@ export const adsApi = createApi({
     getAdById: builder.query<IAd, string>({
       query: (id: string) => `/ads/${id}`,
     }),
+    getCommentsById: builder.query<IComment, string>({
+      query: (id: string) => `/ads/${id}/comments`,
+      providesTags: ['Comments'],
+    }),
   }),
 });
 
 export const {
-  useGetAllAdsQuery, useGetAdByIdQuery
+  useGetAllAdsQuery, useGetAdByIdQuery, useGetCommentsByIdQuery
 } = adsApi;

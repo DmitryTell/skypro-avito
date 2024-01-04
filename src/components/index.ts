@@ -6,3 +6,4 @@ export * from './adv-list';
 export * from './profile';
 export * from './picture-box';
 export * from './adv-content';
+export * from './backdrop';
