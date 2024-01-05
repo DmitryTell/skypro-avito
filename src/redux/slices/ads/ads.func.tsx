@@ -17,7 +17,7 @@ export const adsApi = createApi({
     getAdById: builder.query<IAd, string>({
       query: (id: string) => `/ads/${id}`,
     }),
-    getCommentsById: builder.query<IComment, string>({
+    getCommentsById: builder.query<IComment[], string>({
       query: (id: string) => `/ads/${id}/comments`,
       providesTags: ['Comments'],
     }),
