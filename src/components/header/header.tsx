@@ -1,20 +1,27 @@
+import { FC } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { HeaderButton } from './ui';
+import { useAppSelector } from '@hook/';
+import { getStateUser } from '@redux/';
+
+import { HeaderButton, ExitButton } from './ui';
 import * as Styled from './header.styled';
 
 
-export const Header = () => {
+interface IHeader {
+  currentLocation: string;
+}
+
+export const Header: FC<IHeader> = ({ currentLocation }) => {
   const navigate = useNavigate();
 
-  // This's mock data so far
-  const mockUser = false;
+  const { isAuth } = useAppSelector(getStateUser);
 
   return (
     <Styled.Header>
       <Styled.HeaderContainer>
         <Styled.HeaderButtons>
-          { !mockUser ? (
+          { !isAuth ? (
             <Styled.HeaderButtonBox>
               <HeaderButton text="Вход в личный кабинет" type="button" onClick={ () => navigate('/login', { replace: true }) } />
             </Styled.HeaderButtonBox>
@@ -23,9 +30,12 @@ export const Header = () => {
               <Styled.HeaderButtonBoxNewAdv>
                 <HeaderButton text="Разместить объявление" type="button" onClick={ () => console.log('Click') } />
               </Styled.HeaderButtonBoxNewAdv>
-              <Styled.HeaderButtonBoxToProfile>
-                <HeaderButton text="Личный кабинет" type="button" onClick={ () => navigate('/profile', { replace: true }) } />
-              </Styled.HeaderButtonBoxToProfile>
+              { currentLocation !== '/profile' && (
+                <Styled.HeaderButtonBoxToProfile>
+                  <HeaderButton text="Личный кабинет" type="button" onClick={ () => navigate('/profile', { replace: true }) } />
+                </Styled.HeaderButtonBoxToProfile>
+              ) }
+              <ExitButton />
             </>
           ) }
         </Styled.HeaderButtons>

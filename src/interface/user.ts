@@ -3,8 +3,8 @@ export interface IUser {
   name: string;
   email: string;
   city: string;
-  avatar: string;
-  sells_from: string;
+  avatar: string | null;
+  sells_from: string | null;
   phone: string;
   role?: string;
   surname?: string;

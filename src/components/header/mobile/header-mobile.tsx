@@ -5,7 +5,7 @@ import { useAppSelector, useAppDispatch } from '@hook/';
 import { setSearchText, setAllAds, getStateAds } from '@redux/';
 import { searchAd } from '@utils/';
 
-import { Search } from '../ui';
+import { Search, ExitButton } from '../ui';
 import * as Styled from './header-mobile.styled';
 
 
@@ -38,6 +38,7 @@ export const HeaderMobile: FC<IHeaderMobile> = ({ currentLocation }) => {
           onKeyDown={ handleSearchAd }
         />
       ) }
+      <ExitButton />
     </Styled.HeaderMobile>
   );
 };

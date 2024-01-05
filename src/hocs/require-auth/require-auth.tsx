@@ -1,11 +1,13 @@
 import { Navigate, Outlet } from 'react-router-dom';
 
+import { useAppSelector } from '@hook/';
+import { getStateUser } from '@redux/';
+
 
 export const RequireAuth = () => {
-  // Mock user so far
-  const user = false;
+  const { isAuth } = useAppSelector(getStateUser);
 
-  if (!user) {
+  if (!isAuth) {
     return <Navigate to="/login" />;
   }
 

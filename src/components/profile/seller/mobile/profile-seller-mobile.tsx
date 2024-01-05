@@ -16,7 +16,7 @@ export const ProfileSellerMobile: FC<IProfileSellerMobile> = ({ seller }) => (
     <Styled.SellerMobileName>
       { seller?.name }
       <Styled.SellerMobileText>{ seller?.city }</Styled.SellerMobileText>
-      <Styled.SellerMobileText>Продает товары с { formatSellsFromDate(seller?.sells_from) }</Styled.SellerMobileText>
+      <Styled.SellerMobileText>Продает товары с { formatSellsFromDate(seller?.sells_from || '') }</Styled.SellerMobileText>
     </Styled.SellerMobileName>
     <Styled.SellerMobilePicture>
       { Boolean(seller?.avatar) && <img alt="Seller img" src={ `${process.env.REACT_APP_API_URL}${seller.avatar}` } /> }

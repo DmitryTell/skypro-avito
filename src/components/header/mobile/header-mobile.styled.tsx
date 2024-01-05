@@ -11,7 +11,7 @@ export const HeaderMobile = styled.div`
         padding-right: 17px;
         background: #009ee4;
         display: flex;
-        justify-content: start;
+        justify-content: space-between;
         align-items: center;
         gap: 10px;
     }
