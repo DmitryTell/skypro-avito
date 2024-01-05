@@ -16,7 +16,7 @@ export const ProfileSettings: FC<IProfileSettings> = ({ user }) => (
     <Styled.SettingsTitle>Настройки профиля</Styled.SettingsTitle>
     <Styled.SettingsPictureBox>
       <Styled.SettingsPicture>
-        { Boolean(user.avatar) && <img alt="User img" src={ user.avatar } /> }
+        { Boolean(user?.avatar) && <img alt="User img" src={ `${process.env.REACT_APP_API_URL}${user.avatar}` } /> }
       </Styled.SettingsPicture>
       <Styled.SettingsLink href="/#">
         Изменить

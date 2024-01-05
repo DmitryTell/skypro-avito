@@ -4,7 +4,7 @@ import * as Styled from './input.styled';
 
 
 interface IInput extends HTMLProps<HTMLInputElement> {
-  type: 'email' | 'password' | 'text';
+  type: 'email' | 'password' | 'tel' | 'text';
   placeholder: string;
   onChange: React.ChangeEventHandler<HTMLInputElement>;
 }

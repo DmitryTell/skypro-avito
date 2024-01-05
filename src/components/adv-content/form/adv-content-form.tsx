@@ -48,7 +48,7 @@ export const AdvContentForm: FC<IAdvContentForm> = ({
         </Styled.FormUserAva>
         <Styled.FormUserName>
           <Styled.FormUserLink to={ `/profile-seller/${user.id}` }>{ user.name }</Styled.FormUserLink>
-          <Styled.FormUserText>Продает товары с { formatSellsFromDate(user.sells_from) }</Styled.FormUserText>
+          <Styled.FormUserText>Продает товары с { formatSellsFromDate(user.sells_from || '') }</Styled.FormUserText>
         </Styled.FormUserName>
       </Styled.FormUserBox>
     </Styled.Form>

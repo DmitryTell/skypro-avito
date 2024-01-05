@@ -20,7 +20,7 @@ export const ProfileSeller: FC<IProfileSeller> = ({ seller }) => (
       <Styled.SellerName>
         { seller?.name }
         <Styled.SellerText>{ seller?.city }</Styled.SellerText>
-        <Styled.SellerText>Продает товары с { formatSellsFromDate(seller?.sells_from) }</Styled.SellerText>
+        <Styled.SellerText>Продает товары с { formatSellsFromDate(seller?.sells_from || '') }</Styled.SellerText>
       </Styled.SellerName>
       <Styled.SellerPhoneBox>
         <ShowPhoneButton userPhone={ seller?.phone } />
