@@ -6,20 +6,23 @@ import {
 } from '@components/';
 import { Button } from '@shared/';
 import { formatDate } from '@utils/';
+import { useAppSelector } from '@hook/';
+import { getStateUser } from '@redux/';
 
 import * as Styled from './comments.styled';
 
 
 interface IComments {
   comments: IComment[];
-  currentUserId: number | null;
 }
 
-export const Comments: FC<IComments> = ({ comments, currentUserId }) => {
+export const Comments: FC<IComments> = ({ comments }) => {
+  const { isAuth } = useAppSelector(getStateUser);
+
   const [commentText, setCommentText] = useState<string>('');
 
   const handleAddComment = () => {
-    if (!currentUserId) {
+    if (!isAuth) {
       // eslint-disable-next-line no-alert
       alert('Только авторизованные пользователи могут оставлять комментарии');
 

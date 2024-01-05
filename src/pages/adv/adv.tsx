@@ -26,8 +26,6 @@ import { Comments } from './comments';
 import * as Styled from './adv.styled';
 
 
-const mockCurrentUserId = null;
-
 export const Adv = () => {
   const { id } = useParams();
   const { isOpenedModal } = useAppSelector(getStateAds);
@@ -60,6 +58,7 @@ export const Adv = () => {
     },
   });
   const [comments, setComments] = useState<IComment[] | []>([]);
+  const [currentUserId, setCurrentUserId] = useState<number | null>(null);
 
   useEffect(() => {
     if (adById) {
@@ -96,7 +95,7 @@ export const Adv = () => {
                 title={ currentAd?.title }
                 user={ currentAd.user }
               >
-                { mockCurrentUserId !== currentAd?.user_id ? (
+                { currentUserId !== currentAd?.user_id ? (
                   <Styled.MainPhoneButtonBox>
                     <ShowPhoneButton disabled={ isLoading } userPhone={ currentAd?.user?.phone } />
                   </Styled.MainPhoneButtonBox>
@@ -120,7 +119,7 @@ export const Adv = () => {
       { isOpenedModal && (
         <>
           <Backdrop />
-          <Comments comments={ comments } currentUserId={ mockCurrentUserId } />
+          <Comments comments={ comments } />
         </>
       ) }
     </Container>

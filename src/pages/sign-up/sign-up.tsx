@@ -5,14 +5,11 @@ import { ContainerAuth } from '@layouts/';
 import { HeaderMobile, FormAuth, Footer } from '@components/';
 import { Input, Button } from '@shared/';
 import { registerUser } from '@api/';
-import { useAppDispatch } from '@hook/';
-import { setUser } from '@redux/';
 
 import * as Styled from './sign-up.styled';
 
 
 export const SignUp = () => {
-  const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
   const [email, setEmail] = useState<string>('');
@@ -68,12 +65,10 @@ export const SignUp = () => {
     setErrorText('');
 
     try {
-      const data = await registerUser(email, password, phone, name, surname, city);
+      await registerUser(email, password, phone, name, surname, city);
 
       setIsWaiting(false);
       setErrorText('');
-
-      dispatch(setUser({ user: data }));
 
       // eslint-disable-next-line no-alert
       alert('Вы успешно зарегистрировались, теперь авторизуйтесь');
@@ -101,7 +96,7 @@ export const SignUp = () => {
           <Input placeholder="Город (необязательно)" type="text" onChange={ (e) => setCity(e.target.value) } />
         </Styled.Inputs>
         <Styled.ErrorBox>
-          { isWaiting && <Styled.WaitingText>Загрузка...</Styled.WaitingText> }
+          { isWaiting && <Styled.WaitingText>Подождите...</Styled.WaitingText> }
           { Boolean(errorText) && <Styled.ErrorText>Ошибка: { errorText }</Styled.ErrorText> }
         </Styled.ErrorBox>
         <Styled.Buttons>

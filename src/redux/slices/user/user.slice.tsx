@@ -1,23 +1,21 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { IUser } from '@interface/';
 
-
-const AUTH_DATA = 'USER_STOREAGE';
+const AUTH_DATA = 'auth-data';
 
 interface IUserState {
-  user: IUser | null;
-  token_access: string | null;
-  token_refresh: string | null;
+  access: string | null;
+  refresh: string | null;
+  isAuth: boolean;
 }
 
 const initialState: IUserState = {
-  user: null,
-  token_access: null,
-  token_refresh: null,
+  access: null,
+  refresh: null,
+  isAuth: false,
 };
 
-const getUserStateFromLocalStoreage = () => {
+const getAuthDataFromLocalStoreage = () => {
   const savedData = localStorage.getItem(AUTH_DATA);
   const data = savedData ? JSON.parse(savedData) as IUserState : initialState;
 
@@ -26,14 +24,25 @@ const getUserStateFromLocalStoreage = () => {
 
 export const userSlice = createSlice({
   name: 'user',
-  initialState: getUserStateFromLocalStoreage(),
+  initialState: getAuthDataFromLocalStoreage(),
   reducers: {
-    setUser(state, action: PayloadAction<{ user: IUser }>) {
-      const { user } = action.payload;
+    setNewToken(state, action: PayloadAction<{ token: IUserState }>) {
+      const { token } = action.payload;
 
-      state.user = user;
+      state.access = token.access;
+      state.refresh = token.refresh;
+      state.isAuth = token.isAuth;
+
+      localStorage.setItem(AUTH_DATA, JSON.stringify(state));
+    },
+    removeAuthData(state) {
+      state.access = null;
+      state.refresh = null;
+      state.isAuth = false;
+
+      localStorage.clear();
     },
   },
 });
 
-export const { setUser } = userSlice.actions;
+export const { setNewToken, removeAuthData } = userSlice.actions;
