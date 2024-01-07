@@ -2,7 +2,7 @@ import {
   BaseQueryApi, FetchArgs, createApi, fetchBaseQuery, BaseQueryFn, FetchBaseQueryError,
 } from '@reduxjs/toolkit/query/react';
 
-import { IUser } from '@interface/';
+import { IUser, IRequestChangeUser } from '@interface/';
 
 import { setNewToken, removeAuthData } from './user.slice';
 
@@ -99,7 +99,17 @@ export const userApi = createApi({
     getUser: builder.query<IUser, void>({
       query: () => '/user',
     }),
+    changeUserData: builder.mutation({
+      query: ({ body }: { body: IRequestChangeUser }) => ({
+        url: '/user',
+        method: 'PATCH',
+        body,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }),
+    }),
   }),
 });
 
-export const { useGetUserQuery } = userApi;
+export const { useGetUserQuery, useChangeUserDataMutation } = userApi;

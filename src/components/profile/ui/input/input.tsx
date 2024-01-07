@@ -1,10 +1,10 @@
-import { FC, HTMLProps } from 'react';
+import { FC, HTMLProps, useState } from 'react';
 
 import * as Styled from './input.styled';
 
 
 interface IInput extends HTMLProps<HTMLInputElement> {
-  type: 'text';
+  type: 'email' | 'text';
   forName: string;
   name: string;
   value: string | undefined;
@@ -13,9 +13,21 @@ interface IInput extends HTMLProps<HTMLInputElement> {
 
 export const SettingsInput: FC<IInput> = ({
   type, forName, name, value, onChange
-}) => (
-  <Styled.Label htmlFor={ forName }>
-    { name }<br />
-    <Styled.Input name={ forName } type={ type } value={ value } onChange={ onChange } />
-  </Styled.Label>
-);
+}) => {
+  const [isFocused, setIsFocused] = useState<boolean>(false);
+
+  return (
+    <Styled.Label $isFocused={ isFocused } htmlFor={ forName }>
+      { name }<br />
+      <Styled.Input
+        $isFocused={ isFocused }
+        name={ forName }
+        type={ type }
+        value={ value }
+        onBlur={ () => setIsFocused(false) }
+        onChange={ onChange }
+        onFocus={ () => setIsFocused(true) }
+      />
+    </Styled.Label>
+  );
+};

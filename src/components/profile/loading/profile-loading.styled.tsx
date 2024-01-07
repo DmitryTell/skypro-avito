@@ -6,6 +6,11 @@ const animation = css`
     animation: adv-animation 1s linear infinite alternate both;
 `;
 
+const animationButton = css`
+    -webkit-animation: button-animation 1s linear infinite alternate both;
+    animation: button-animation 1s linear infinite alternate both;
+`;
+
 export const Seller = styled.div`
     display: flex;
     gap: 50px;
@@ -133,4 +138,16 @@ export const SettingsFormInputBox = styled.div`
     width: 100%;
     height: 50px;
     ${animation}
+`;
+
+export const SettingsButtonBoxLoading = styled.div`
+    width: 154px;
+    height: 50px;
+    border-radius: 6px;
+    ${animationButton}
+
+    @media (max-width: 767px) {
+        width: 100%;
+        height: 46px;
+    }
 `;

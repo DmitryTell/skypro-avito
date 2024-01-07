@@ -9,3 +9,12 @@ export interface IUser {
   role?: string;
   surname?: string;
 }
+
+export interface IRequestChangeUser {
+  role: string;
+  email: string;
+  name: string;
+  surname: string;
+  phone: string;
+  city: string;
+}

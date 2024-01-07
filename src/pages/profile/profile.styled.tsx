@@ -1,5 +1,10 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
+
+const animation = css`
+    -webkit-animation: adv-animation 1s linear infinite alternate both;
+    animation: adv-animation 1s linear infinite alternate both;
+`;
 
 export const Main = styled.main`
     display: flex;
@@ -32,6 +37,8 @@ export const MainTitleLoading = styled.div`
     @media (max-width: 767px) {
         height: 24px;
     }
+
+    ${animation}
 `;
 
 export const MainSubtitle = styled.h2`

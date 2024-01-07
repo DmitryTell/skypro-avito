@@ -95,8 +95,29 @@ export const SettingsFormInputBox = styled.div`
     }
 `;
 
+export const SettingsButtons = styled.div`
+    display: flex;
+    gap: 10px;
+
+    @media (max-width: 767px) {
+        width: 300px;
+        flex-flow: column;
+        align-self: center;
+    }
+`;
+
 export const SettingsButtonBox = styled.div`
     width: 154px;
+    height: 50px;
+
+    @media (max-width: 767px) {
+        width: 100%;
+        height: 46px;
+    }
+`;
+
+export const SettingsButtonPasswordBox = styled.div`
+    width: 225px;
     height: 50px;
 
     @media (max-width: 767px) {
