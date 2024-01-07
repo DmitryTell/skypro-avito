@@ -25,6 +25,15 @@ export const MainTitle = styled.h1`
     }
 `;
 
+export const MainTitleLoading = styled.div`
+    width: 300px;
+    height: 40px;
+
+    @media (max-width: 767px) {
+        height: 24px;
+    }
+`;
+
 export const MainSubtitle = styled.h2`
     color: #000;
     font-size: 32px;

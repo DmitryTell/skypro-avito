@@ -10,7 +10,7 @@ export const adsApi = createApi({
   }),
   tagTypes: ['Ads', 'Comments'],
   endpoints: (builder) => ({
-    getAllAds: builder.query<IAd[], number>({
+    getAllAds: builder.query<IAd[], void>({
       query: () => '/ads',
       providesTags: ['Ads'],
     }),

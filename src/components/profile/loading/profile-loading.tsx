@@ -22,3 +22,17 @@ export const ProfileSellerLoadingMobile = () => (
     <Styled.SellerMobilePicture />
   </Styled.SellerMobile>
 );
+
+export const ProfileSettingsLoading = () => (
+  <Styled.Settings>
+    <Styled.SettingsTitle>Настройки профиля</Styled.SettingsTitle>
+    <Styled.SettingsPictureBox>
+      <Styled.SettingsPicture />
+    </Styled.SettingsPictureBox>
+    <Styled.SettingsForm>
+      <Styled.SettingsFormInputBox />
+      <Styled.SettingsFormInputBox />
+      <Styled.SettingsFormInputBox />
+    </Styled.SettingsForm>
+  </Styled.Settings>
+);
