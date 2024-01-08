@@ -4,10 +4,12 @@ import {
 
 import { IUser, IRequestChangeUser } from '@interface/';
 import { Button } from '@shared/';
-import { useChangeUserDataMutation } from '@redux/';
+import { useChangeUserDataMutation, setUserName } from '@redux/';
+import { useAppDispatch } from '@hook/';
 
 import { SettingsInput, SettingsInputPhone } from '../ui';
 import { SettingsButtonBoxLoading } from '../loading';
+import { USER_DATA } from './lib';
 import * as Styled from './profile-settings.styled';
 
 
@@ -16,6 +18,8 @@ interface IProfileSettings {
 }
 
 export const ProfileSettings: FC<IProfileSettings> = ({ user }) => {
+  const dispatch = useAppDispatch();
+
   const [changeUser] = useChangeUserDataMutation();
 
   const [isDisabled, setIsDisabled] = useState<boolean>(true);
@@ -48,14 +52,19 @@ export const ProfileSettings: FC<IProfileSettings> = ({ user }) => {
 
     changeUser({ body })
       .unwrap()
-      .then(() => {
+      .then((data) => {
         setIsWaiting(false);
         setIsDisabled(true);
+
+        dispatch(setUserName({ username: data.name }));
+
+        localStorage.setItem(USER_DATA, JSON.stringify(data));
         // eslint-disable-next-line no-alert
         alert('Данные обновлены');
       })
       .catch(() => {
         setIsWaiting(false);
+
         // eslint-disable-next-line no-alert
         alert('Что-то пошло не так');
       });
@@ -67,7 +76,9 @@ export const ProfileSettings: FC<IProfileSettings> = ({ user }) => {
     setEmail(user.email);
     setCity(user.city);
     setPhone(user.phone);
-  }, [user]);
+
+    dispatch(setUserName({ username: user.name }));
+  }, [dispatch, user]);
 
   return (
     <Styled.Settings>
@@ -98,13 +109,6 @@ export const ProfileSettings: FC<IProfileSettings> = ({ user }) => {
           />
         </Styled.SettingsFormInputBox>
         <Styled.SettingsFormInputBox>
-          <SettingsInput
-            forName="settings-input"
-            name="Email"
-            type="email"
-            value={ email }
-            onChange={ (e) => handleChangeInput(e, setEmail) }
-          />
           <SettingsInput
             forName="settings-input"
             name="Город"

@@ -3,7 +3,7 @@ import { FC, ReactNode } from 'react';
 import { IComment, IUser } from '@interface/';
 import { formatSellsFromDate } from '@utils/';
 import { useAppDispatch } from '@hook/';
-import { setIsOpenedModal } from '@redux/';
+import { setIsOpenedComments } from '@redux/';
 
 import * as Styled from './adv-content-form.styled';
 
@@ -25,7 +25,7 @@ export const AdvContentForm: FC<IAdvContentForm> = ({
   const handleClickLink = (event: React.MouseEvent) => {
     event.preventDefault();
 
-    dispatch(setIsOpenedModal({ isOpenedModal: true }));
+    dispatch(setIsOpenedComments({ isOpenedComments: true }));
   };
 
   return (

@@ -6,13 +6,13 @@ import { IAd } from '@interface/';
 interface IAds {
   allAds: IAd[];
   searchText: string;
-  isOpenedModal: boolean;
+  isOpenedComments: boolean;
 }
 
 const initialState: IAds = {
   allAds: [],
   searchText: '',
-  isOpenedModal: false,
+  isOpenedComments: false,
 };
 
 export const adsSlice = createSlice({
@@ -29,12 +29,12 @@ export const adsSlice = createSlice({
 
       state.searchText = searchText;
     },
-    setIsOpenedModal(state, action: PayloadAction<{ isOpenedModal: boolean }>) {
-      const { isOpenedModal } = action.payload;
+    setIsOpenedComments(state, action: PayloadAction<{ isOpenedComments: boolean }>) {
+      const { isOpenedComments } = action.payload;
 
-      state.isOpenedModal = isOpenedModal;
+      state.isOpenedComments = isOpenedComments;
     },
   },
 });
 
-export const { setSearchText, setAllAds, setIsOpenedModal } = adsSlice.actions;
+export const { setSearchText, setAllAds, setIsOpenedComments } = adsSlice.actions;

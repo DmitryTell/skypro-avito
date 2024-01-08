@@ -1,8 +1,8 @@
 import { FC, ReactNode } from 'react';
 
 import { CloseButton, BackButton } from '@shared/';
-import { useAppDispatch } from '@hook/';
-import { setIsOpenedModal } from '@redux/';
+import { useAppDispatch, useAppSelector } from '@hook/';
+import { setIsOpenedComments, getStateAds } from '@redux/';
 
 import * as Styled from './form-modal.styled';
 
@@ -14,8 +14,13 @@ interface IFormModal {
 
 export const FormModal: FC<IFormModal> = ({ title, children }) => {
   const dispatch = useAppDispatch();
+  const { isOpenedComments } = useAppSelector(getStateAds);
 
-  const handleCloseModal = () => dispatch(setIsOpenedModal({ isOpenedModal: false }));
+  const handleCloseModal = () => {
+    if (isOpenedComments) {
+      dispatch(setIsOpenedComments({ isOpenedComments: false }));
+    }
+  };
 
   return (
     <Styled.Modal>

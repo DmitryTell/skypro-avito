@@ -28,7 +28,7 @@ import * as Styled from './adv.styled';
 
 export const Adv = () => {
   const { id } = useParams();
-  const { isOpenedModal } = useAppSelector(getStateAds);
+  const { isOpenedComments } = useAppSelector(getStateAds);
 
   const { data: adById, isLoading } = useGetAdByIdQuery(id || '0');
   const { data: commentsById } = useGetCommentsByIdQuery(id || '0');
@@ -116,7 +116,7 @@ export const Adv = () => {
         { isLoading ? <ACLoadingDescription /> : <AdvDescription description={ currentAd?.description } /> }
       </Styled.Main>
       <Footer />
-      { isOpenedModal && (
+      { isOpenedComments && (
         <>
           <Backdrop />
           <Comments comments={ comments } />

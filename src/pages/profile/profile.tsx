@@ -2,15 +2,18 @@ import { useState, useEffect } from 'react';
 
 import { Container } from '@layouts/';
 import {
-  Top, ProfileSettings, AdvList, Footer, ProfileSettingsLoading,
+  Top, ProfileSettings, AdvList, Footer, ProfileSettingsLoading, USER_DATA,
 } from '@components/';
-import { useGetUserQuery } from '@redux/';
+import { useGetUserQuery, getStateUser } from '@redux/';
 import { IUser } from '@interface/';
+import { useAppSelector } from '@hook/';
 
 import * as Styled from './profile.styled';
 
 
 export const Profile = () => {
+  const { username } = useAppSelector(getStateUser);
+
   const { data: currentUser, isLoading, error } = useGetUserQuery();
 
   const [user, setUser] = useState<IUser>({
@@ -24,8 +27,11 @@ export const Profile = () => {
   });
 
   useEffect(() => {
-    if (currentUser) {
-      setUser(currentUser);
+    const userSavedData = localStorage.getItem(USER_DATA);
+    const userData = userSavedData ? JSON.parse(userSavedData) as IUser : currentUser;
+
+    if (userData) {
+      setUser(userData);
     }
   }, [currentUser]);
 
@@ -40,7 +46,7 @@ export const Profile = () => {
           </>
         ) : (
           <>
-            <Styled.MainTitle>{ error ? 'Ошибка загрузки данных' : `Здравствуйте, ${user?.name}` }</Styled.MainTitle>
+            <Styled.MainTitle>{ error ? 'Ошибка загрузки данных' : `Здравствуйте, ${username || 'Неизвестный'}` }</Styled.MainTitle>
             { !error && <ProfileSettings user={ user } /> }
           </>
         ) }
