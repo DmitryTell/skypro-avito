@@ -2,17 +2,25 @@ import { useState, useEffect } from 'react';
 
 import { Container } from '@layouts/';
 import {
-  Top, ProfileSettings, AdvList, Footer, ProfileSettingsLoading, USER_DATA,
+  Top,
+  ProfileSettings,
+  AdvList,
+  Footer,
+  ProfileSettingsLoading,
+  Backdrop,
+  USER_DATA,
 } from '@components/';
-import { useGetUserQuery, getStateUser } from '@redux/';
+import { useGetUserQuery, getStateUser, getStateAds } from '@redux/';
 import { IUser } from '@interface/';
 import { useAppSelector } from '@hook/';
 
+import { ChangingPassword } from './changing-password';
 import * as Styled from './profile.styled';
 
 
 export const Profile = () => {
   const { username } = useAppSelector(getStateUser);
+  const { isOpenedChangingPassword } = useAppSelector(getStateAds);
 
   const { data: currentUser, isLoading, error } = useGetUserQuery();
 
@@ -54,6 +62,12 @@ export const Profile = () => {
         <AdvList isLoading={ isLoading } items={ [] } />
       </Styled.Main>
       <Footer />
+      { isOpenedChangingPassword && (
+        <>
+          <Backdrop />
+          <ChangingPassword />
+        </>
+      ) }
     </Container>
   );
 };

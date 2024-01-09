@@ -18,3 +18,8 @@ export interface IRequestChangeUser {
   phone: string;
   city: string;
 }
+
+export interface IRequestChangePassword {
+  password_1: string;
+  password_2: string;
+}

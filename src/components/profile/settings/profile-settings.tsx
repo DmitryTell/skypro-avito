@@ -4,7 +4,7 @@ import {
 
 import { IUser, IRequestChangeUser } from '@interface/';
 import { Button } from '@shared/';
-import { useChangeUserDataMutation, setNewUserState } from '@redux/';
+import { useChangeUserDataMutation, setNewUserState, setIsOpenedChangingPassword } from '@redux/';
 import { useAppDispatch } from '@hook/';
 
 import { SettingsInput, SettingsInputPhone } from '../ui';
@@ -132,7 +132,11 @@ export const ProfileSettings: FC<IProfileSettings> = ({ user }) => {
           { isWaiting ? <SettingsButtonBoxLoading /> : <Button disabled={ isDisabled } text="Сохранить" type="button" onClick={ handleChangeUserData } /> }
         </Styled.SettingsButtonBox>
         <Styled.SettingsButtonPasswordBox>
-          <Button text="Сменить пароль" type="button" onClick={ () => console.log('Click to change password') } />
+          <Button
+            text="Сменить пароль"
+            type="button"
+            onClick={ () => dispatch(setIsOpenedChangingPassword({ isOpenedChangingPassword: true })) }
+          />
         </Styled.SettingsButtonPasswordBox>
       </Styled.SettingsButtons>
     </Styled.Settings>

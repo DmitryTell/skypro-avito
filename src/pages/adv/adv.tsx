@@ -18,7 +18,9 @@ import {
 import { Button, ShowPhoneButton } from '@shared/';
 import { formatDate } from '@utils/';
 import { IAd, IComment } from '@interface/';
-import { useGetAdByIdQuery, getStateAds, useGetCommentsByIdQuery } from '@redux/';
+import {
+  useGetAdByIdQuery, getStateAds, useGetCommentsByIdQuery, getStateUser,
+} from '@redux/';
 import { useAppSelector } from '@hook/';
 
 import { Comments } from './comments';
@@ -29,6 +31,7 @@ import * as Styled from './adv.styled';
 export const Adv = () => {
   const { id } = useParams();
   const { isOpenedComments } = useAppSelector(getStateAds);
+  const user = useAppSelector(getStateUser);
 
   const { data: adById, isLoading } = useGetAdByIdQuery(id || '0');
   const { data: commentsById } = useGetCommentsByIdQuery(id || '0');
@@ -58,7 +61,6 @@ export const Adv = () => {
     },
   });
   const [comments, setComments] = useState<IComment[] | []>([]);
-  const [currentUserId, setCurrentUserId] = useState<number | null>(null);
 
   useEffect(() => {
     if (adById) {
@@ -95,7 +97,7 @@ export const Adv = () => {
                 title={ currentAd?.title }
                 user={ currentAd.user }
               >
-                { currentUserId !== currentAd?.user_id ? (
+                { user?.id !== currentAd?.user_id ? (
                   <Styled.MainPhoneButtonBox>
                     <ShowPhoneButton disabled={ isLoading } userPhone={ currentAd?.user?.phone } />
                   </Styled.MainPhoneButtonBox>

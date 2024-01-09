@@ -1,4 +1,4 @@
-import { IUser, IRequestChangeUser } from '@interface/';
+import { IUser, IRequestChangeUser, IRequestChangePassword } from '@interface/';
 
 import { apiBaseSlice } from '../api-base-reauth';
 
@@ -18,7 +18,21 @@ export const userApi = apiBaseSlice.injectEndpoints({
         },
       }),
     }),
+    changePassword: builder.mutation({
+      query: ({ body }: { body: IRequestChangePassword }) => ({
+        url: '/user/password',
+        method: 'PUT',
+        body,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }),
+    }),
   }),
 });
 
-export const { useGetUserQuery, useChangeUserDataMutation } = userApi;
+export const {
+  useGetUserQuery,
+  useChangeUserDataMutation,
+  useChangePasswordMutation,
+} = userApi;

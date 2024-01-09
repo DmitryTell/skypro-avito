@@ -7,12 +7,14 @@ interface IAds {
   allAds: IAd[];
   searchText: string;
   isOpenedComments: boolean;
+  isOpenedChangingPassword: boolean;
 }
 
 const initialState: IAds = {
   allAds: [],
   searchText: '',
   isOpenedComments: false,
+  isOpenedChangingPassword: false,
 };
 
 export const adsSlice = createSlice({
@@ -34,7 +36,17 @@ export const adsSlice = createSlice({
 
       state.isOpenedComments = isOpenedComments;
     },
+    setIsOpenedChangingPassword(state, action: PayloadAction<{ isOpenedChangingPassword: boolean }>) {
+      const { isOpenedChangingPassword } = action.payload;
+
+      state.isOpenedChangingPassword = isOpenedChangingPassword;
+    },
   },
 });
 
-export const { setSearchText, setAllAds, setIsOpenedComments } = adsSlice.actions;
+export const {
+  setSearchText,
+  setAllAds,
+  setIsOpenedComments,
+  setIsOpenedChangingPassword,
+} = adsSlice.actions;

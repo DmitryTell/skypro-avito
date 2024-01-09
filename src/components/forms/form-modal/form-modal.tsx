@@ -2,7 +2,11 @@ import { FC, ReactNode } from 'react';
 
 import { CloseButton, BackButton } from '@shared/';
 import { useAppDispatch, useAppSelector } from '@hook/';
-import { setIsOpenedComments, getStateAds } from '@redux/';
+import {
+  setIsOpenedComments,
+  setIsOpenedChangingPassword,
+  getStateAds,
+} from '@redux/';
 
 import * as Styled from './form-modal.styled';
 
@@ -14,11 +18,19 @@ interface IFormModal {
 
 export const FormModal: FC<IFormModal> = ({ title, children }) => {
   const dispatch = useAppDispatch();
-  const { isOpenedComments } = useAppSelector(getStateAds);
+  const {
+    isOpenedComments,
+    isOpenedChangingPassword,
+  } = useAppSelector(getStateAds);
 
   const handleCloseModal = () => {
     if (isOpenedComments) {
       dispatch(setIsOpenedComments({ isOpenedComments: false }));
+      return;
+    }
+
+    if (isOpenedChangingPassword) {
+      dispatch(setIsOpenedChangingPassword({ isOpenedChangingPassword: false }));
     }
   };
 
