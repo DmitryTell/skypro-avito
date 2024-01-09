@@ -2,7 +2,7 @@ import { FC } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { useAppSelector } from '@hook/';
-import { getStateUser } from '@redux/';
+import { getStateAuth } from '@redux/';
 
 import { HeaderButton, ExitButton } from './ui';
 import * as Styled from './header.styled';
@@ -15,7 +15,7 @@ interface IHeader {
 export const Header: FC<IHeader> = ({ currentLocation }) => {
   const navigate = useNavigate();
 
-  const { isAuth } = useAppSelector(getStateUser);
+  const { isAuth } = useAppSelector(getStateAuth);
 
   return (
     <Styled.Header>

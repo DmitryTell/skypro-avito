@@ -4,7 +4,7 @@ import {
 
 import { IUser, IRequestChangeUser } from '@interface/';
 import { Button } from '@shared/';
-import { useChangeUserDataMutation, setUserName } from '@redux/';
+import { useChangeUserDataMutation, setNewUserState } from '@redux/';
 import { useAppDispatch } from '@hook/';
 
 import { SettingsInput, SettingsInputPhone } from '../ui';
@@ -56,7 +56,7 @@ export const ProfileSettings: FC<IProfileSettings> = ({ user }) => {
         setIsWaiting(false);
         setIsDisabled(true);
 
-        dispatch(setUserName({ username: data.name }));
+        dispatch(setNewUserState({ userState: { id: data.id, username: data.name } }));
 
         localStorage.setItem(USER_DATA, JSON.stringify(data));
         // eslint-disable-next-line no-alert
@@ -77,7 +77,7 @@ export const ProfileSettings: FC<IProfileSettings> = ({ user }) => {
     setCity(user.city);
     setPhone(user.phone);
 
-    dispatch(setUserName({ username: user.name }));
+    dispatch(setNewUserState({ userState: { id: user.id, username: user.name } }));
   }, [dispatch, user]);
 
   return (

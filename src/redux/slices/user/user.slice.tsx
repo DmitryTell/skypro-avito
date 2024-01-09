@@ -1,24 +1,20 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 
-const AUTH_DATA = 'auth-data';
+const USER_STATE_DATA = 'user-state-data';
 
 interface IUserState {
-  access: string | null;
-  refresh: string | null;
-  isAuth: boolean;
+  id: number | null;
   username: string | null;
 }
 
 const initialState: IUserState = {
-  access: null,
-  refresh: null,
-  isAuth: false,
+  id: null,
   username: null,
 };
 
-const getAuthDataFromLocalStoreage = () => {
-  const savedData = localStorage.getItem(AUTH_DATA);
+const getUserStateFromLocalStoreage = () => {
+  const savedData = localStorage.getItem(USER_STATE_DATA);
   const data = savedData ? JSON.parse(savedData) as IUserState : initialState;
 
   return data;
@@ -26,40 +22,17 @@ const getAuthDataFromLocalStoreage = () => {
 
 export const userSlice = createSlice({
   name: 'user',
-  initialState: getAuthDataFromLocalStoreage(),
+  initialState: getUserStateFromLocalStoreage(),
   reducers: {
-    setNewToken(state, action: PayloadAction<{ token: {
-      access: string;
-      refresh: string;
-      isAuth: boolean;
-    }; }>) {
-      const { token } = action.payload;
+    setNewUserState(state, action: PayloadAction<{ userState: IUserState }>) {
+      const { userState } = action.payload;
 
-      state.access = token.access;
-      state.refresh = token.refresh;
-      state.isAuth = token.isAuth;
+      state.id = userState.id;
+      state.username = userState.username;
 
-      localStorage.setItem(AUTH_DATA, JSON.stringify(state));
-    },
-    setUserName(state, action: PayloadAction<{ username: string }>) {
-      const { username } = action.payload;
-
-      if (!username) {
-        state.username = null;
-      }
-
-      state.username = username;
-
-      localStorage.setItem(AUTH_DATA, JSON.stringify(state));
-    },
-    removeAuthData(state) {
-      state.access = null;
-      state.refresh = null;
-      state.isAuth = false;
-
-      localStorage.clear();
+      localStorage.setItem(USER_STATE_DATA, JSON.stringify(state));
     },
   },
 });
 
-export const { setNewToken, removeAuthData, setUserName } = userSlice.actions;
+export const { setNewUserState } = userSlice.actions;

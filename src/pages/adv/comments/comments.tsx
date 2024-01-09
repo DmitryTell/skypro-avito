@@ -7,7 +7,7 @@ import {
 import { Button } from '@shared/';
 import { formatDate } from '@utils/';
 import { useAppSelector } from '@hook/';
-import { getStateUser } from '@redux/';
+import { getStateAuth } from '@redux/';
 
 import * as Styled from './comments.styled';
 
@@ -17,7 +17,7 @@ interface IComments {
 }
 
 export const Comments: FC<IComments> = ({ comments }) => {
-  const { isAuth } = useAppSelector(getStateUser);
+  const { isAuth } = useAppSelector(getStateAuth);
 
   const [commentText, setCommentText] = useState<string>('');
 
