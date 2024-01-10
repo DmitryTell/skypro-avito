@@ -36,7 +36,3 @@ export const ProfileSettingsLoading = () => (
     </Styled.SettingsForm>
   </Styled.Settings>
 );
-
-export const SettingsButtonBoxLoading = () => (
-  <Styled.SettingsButtonBoxLoading />
-);

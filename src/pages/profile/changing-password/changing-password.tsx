@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { HeaderMobile, FormModal, Footer } from '@components/';
-import { Input, Button } from '@shared/';
+import { Input, Button, LoadingButton } from '@shared/';
 import { useAppDispatch } from '@hook/';
 import { removeAuthData, useChangePasswordMutation, setIsOpenedChangingPassword } from '@redux/';
 import { IRequestChangePassword } from '@interface/';
@@ -19,7 +19,6 @@ export const ChangingPassword = () => {
   const [oldPassword, setOldPassword] = useState<string>('');
   const [newPassword, setNewPassword] = useState<string>('');
   const [errorText, setErrorText] = useState<string>('');
-  const [isDisabled, setIsDisabled] = useState<boolean>(false);
   const [isWaiting, setIsWaiting] = useState<boolean>(false);
 
   const handleChangePassword = () => {
@@ -34,13 +33,11 @@ export const ChangingPassword = () => {
     }
 
     setErrorText('');
-    setIsDisabled(true);
     setIsWaiting(true);
 
     changePassword({ body })
       .unwrap()
       .then(() => {
-        setIsDisabled(false);
         setIsWaiting(false);
 
         // eslint-disable-next-line no-alert
@@ -55,7 +52,6 @@ export const ChangingPassword = () => {
         console.error(error);
 
         setErrorText('неверный пароль');
-        setIsDisabled(false);
         setIsWaiting(false);
       });
   };
@@ -71,10 +67,11 @@ export const ChangingPassword = () => {
           </Styled.Inputs>
           <Styled.ErrorBox>
             { Boolean(errorText) && <Styled.ErrorText>Ошибка: { errorText }</Styled.ErrorText> }
-            { isWaiting && <Styled.WaitingText>Подождите...</Styled.WaitingText> }
           </Styled.ErrorBox>
           <Styled.ButtonBox>
-            <Button disabled={ isDisabled } text="Сохранить" type="button" onClick={ handleChangePassword } />
+            { isWaiting
+              ? <LoadingButton />
+              : <Button text="Сохранить" type="button" onClick={ handleChangePassword } /> }
           </Styled.ButtonBox>
         </FormModal>
         <Footer />

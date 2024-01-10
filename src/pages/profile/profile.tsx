@@ -8,11 +8,11 @@ import {
   Footer,
   ProfileSettingsLoading,
   Backdrop,
-  USER_DATA,
 } from '@components/';
 import { useGetUserQuery, getStateUser, getStateAds } from '@redux/';
 import { IUser } from '@interface/';
 import { useAppSelector } from '@hook/';
+import { USER_DATA } from '@utils/';
 
 import { ChangingPassword } from './changing-password';
 import * as Styled from './profile.styled';

@@ -60,6 +60,10 @@ export const SettingsPicture = styled.div`
     }
 `;
 
+export const SettingsFileInput = styled.input`
+    display: none;
+`;
+
 export const SettingsLink = styled.a`
     color: #009ee4;
     font-size: 16px;

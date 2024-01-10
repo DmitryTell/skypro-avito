@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
+import { AUTH_DATA } from '@utils/';
 
-const AUTH_DATA = 'auth-data';
 
 interface IAuthState {
   access: string | null;

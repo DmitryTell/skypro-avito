@@ -3,13 +3,17 @@ import {
 } from 'react';
 
 import { IUser, IRequestChangeUser } from '@interface/';
-import { Button } from '@shared/';
-import { useChangeUserDataMutation, setNewUserState, setIsOpenedChangingPassword } from '@redux/';
+import { Button, LoadingButton } from '@shared/';
+import {
+  useChangeUserDataMutation,
+  useSetUserAvatarMutation,
+  setNewUserState,
+  setIsOpenedChangingPassword,
+} from '@redux/';
 import { useAppDispatch } from '@hook/';
+import { USER_DATA } from '@utils/';
 
 import { SettingsInput, SettingsInputPhone } from '../ui';
-import { SettingsButtonBoxLoading } from '../loading';
-import { USER_DATA } from './lib';
 import * as Styled from './profile-settings.styled';
 
 
@@ -21,6 +25,7 @@ export const ProfileSettings: FC<IProfileSettings> = ({ user }) => {
   const dispatch = useAppDispatch();
 
   const [changeUser] = useChangeUserDataMutation();
+  const [uploadAvatar] = useSetUserAvatarMutation();
 
   const [isDisabled, setIsDisabled] = useState<boolean>(true);
   const [name, setName] = useState<string>('');
@@ -28,6 +33,7 @@ export const ProfileSettings: FC<IProfileSettings> = ({ user }) => {
   const [email, setEmail] = useState<string>('');
   const [city, setCity] = useState<string>('');
   const [phone, setPhone] = useState<string>('');
+  const [avatar, setAvatar] = useState<string | null>(null);
   const [isWaiting, setIsWaiting] = useState<boolean>(false);
 
   const handleChangeInput = (
@@ -46,6 +52,7 @@ export const ProfileSettings: FC<IProfileSettings> = ({ user }) => {
       surname,
       phone,
       city,
+      avatar,
     };
 
     setIsWaiting(true);
@@ -70,12 +77,32 @@ export const ProfileSettings: FC<IProfileSettings> = ({ user }) => {
       });
   };
 
+  const handleSetAvatar = (event: React.ChangeEvent<HTMLInputElement>) => {
+    event.preventDefault();
+
+    const file = event.target.files?.[0];
+
+    if (file) {
+      const formData = new FormData();
+
+      formData.append('file', file);
+      uploadAvatar(formData).then((data) => {
+        const userData = Object.values(data)[0];
+
+        setAvatar(userData.avatar);
+
+        localStorage.setItem(USER_DATA, JSON.stringify(userData));
+      });
+    }
+  };
+
   useEffect(() => {
     setName(user.name);
     setSurname(user.surname ?? '');
     setEmail(user.email);
     setCity(user.city);
     setPhone(user.phone);
+    setAvatar(user?.avatar);
 
     dispatch(setNewUserState({ userState: { id: user.id, username: user.name } }));
   }, [dispatch, user]);
@@ -85,9 +112,15 @@ export const ProfileSettings: FC<IProfileSettings> = ({ user }) => {
       <Styled.SettingsTitle>Настройки профиля</Styled.SettingsTitle>
       <Styled.SettingsPictureBox>
         <Styled.SettingsPicture>
-          { Boolean(user?.avatar) && <img alt="User img" src={ `${process.env.REACT_APP_API_URL}${user.avatar}` } /> }
+          { Boolean(avatar) && <img alt="User img" src={ `${process.env.REACT_APP_API_URL}${avatar}` } /> }
         </Styled.SettingsPicture>
-        <Styled.SettingsLink href="/#">
+        <Styled.SettingsFileInput id="upload-avatar" type="file" onChange={ handleSetAvatar } />
+        <Styled.SettingsLink onClick={ (e) => {
+          e.preventDefault();
+
+          document.getElementById('upload-avatar')?.click();
+        } }
+        >
           Изменить
         </Styled.SettingsLink>
       </Styled.SettingsPictureBox>
@@ -129,7 +162,14 @@ export const ProfileSettings: FC<IProfileSettings> = ({ user }) => {
       </Styled.SettingsForm>
       <Styled.SettingsButtons>
         <Styled.SettingsButtonBox>
-          { isWaiting ? <SettingsButtonBoxLoading /> : <Button disabled={ isDisabled } text="Сохранить" type="button" onClick={ handleChangeUserData } /> }
+          { isWaiting ? <LoadingButton /> : (
+            <Button
+              disabled={ isDisabled }
+              text="Сохранить"
+              type="button"
+              onClick={ handleChangeUserData }
+            />
+          ) }
         </Styled.SettingsButtonBox>
         <Styled.SettingsButtonPasswordBox>
           <Button

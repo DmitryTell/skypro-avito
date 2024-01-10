@@ -28,6 +28,13 @@ export const userApi = apiBaseSlice.injectEndpoints({
         },
       }),
     }),
+    setUserAvatar: builder.mutation({
+      query: (formData: object) => ({
+        url: '/user/avatar',
+        method: 'POST',
+        body: formData,
+      }),
+    }),
   }),
 });
 
@@ -35,4 +42,5 @@ export const {
   useGetUserQuery,
   useChangeUserDataMutation,
   useChangePasswordMutation,
+  useSetUserAvatarMutation,
 } = userApi;

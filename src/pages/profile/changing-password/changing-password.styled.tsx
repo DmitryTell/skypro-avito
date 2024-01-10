@@ -59,13 +59,6 @@ export const ErrorBox = styled.div`
     }
 `;
 
-export const WaitingText = styled.span`
-    color: #000;
-    font-size: 18px;
-    font-style: normal;
-    font-weight: 400;
-`;
-
 export const ErrorText = styled.span`
     color: #fa1010;
     font-size: 18px;

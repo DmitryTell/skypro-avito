@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { ContainerAuth } from '@layouts/';
 import { HeaderMobile, FormAuth, Footer } from '@components/';
-import { Input, Button } from '@shared/';
+import { Input, Button, LoadingButton } from '@shared/';
 import { useAppDispatch } from '@hook/';
 import { setNewToken } from '@redux/';
 import { loginUser } from '@api/';
@@ -60,12 +60,13 @@ export const SignIn = () => {
           <Input placeholder="Пароль" type="password" onChange={ (e) => setPassword(e.target.value) } />
         </Styled.Inputs>
         <Styled.ErrorBox>
-          { isWaiting && <Styled.WaitingText>Подождите...</Styled.WaitingText> }
           { Boolean(errorText) && <Styled.ErrorText>Ошибка: { errorText }</Styled.ErrorText> }
         </Styled.ErrorBox>
         <Styled.Buttons>
           <Styled.ButtonBox>
-            <Button disabled={ isWaiting } text="Войти" type="button" onClick={ handleLogin } />
+            { isWaiting
+              ? <LoadingButton />
+              : <Button text="Войти" type="button" onClick={ handleLogin } /> }
           </Styled.ButtonBox>
           <Styled.ButtonBox>
             <RegButton type="button" onClick={ () => navigate('/register', { replace: true }) } />
