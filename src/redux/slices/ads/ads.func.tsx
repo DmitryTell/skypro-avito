@@ -53,6 +53,15 @@ export const adsProtectedApi = apiBaseSlice.injectEndpoints({
         body: args.formData,
       }),
     }),
+    deleteCurrentAd: builder.mutation({
+      query: (id: number) => ({
+        url: `/ads/${id}`,
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }),
+    }),
   }),
 });
 
@@ -67,4 +76,5 @@ export const {
   useGetCurrentUserAdsQuery,
   useCreateNewAdMutation,
   useAddImageToAdvMutation,
+  useDeleteCurrentAdMutation,
 } = adsProtectedApi;

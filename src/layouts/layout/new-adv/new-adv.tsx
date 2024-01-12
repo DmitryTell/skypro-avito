@@ -93,8 +93,7 @@ export const NewAdv = () => {
         });
 
         dispatch(setIsOpenedNewAdv({ isOpenedNewAdv: false }));
-        navigate('/profile', { replace: true });
-        window.location.reload();
+        navigate(`/adv/${adData.id}`, { replace: true });
       });
   };
 

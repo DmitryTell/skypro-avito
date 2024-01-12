@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 
 import { Container } from '@layouts/';
 import {
@@ -15,11 +15,15 @@ import {
   ACLoadingDescription,
   Backdrop,
 } from '@components/';
-import { Button, ShowPhoneButton } from '@shared/';
+import { Button, ShowPhoneButton, LoadingButton } from '@shared/';
 import { formatDate } from '@utils/';
 import { IAd, IComment } from '@interface/';
 import {
-  useGetAdByIdQuery, getStateAds, useGetCommentsByIdQuery, getStateUser,
+  useGetAdByIdQuery,
+  getStateAds,
+  useGetCommentsByIdQuery,
+  getStateUser,
+  useDeleteCurrentAdMutation,
 } from '@redux/';
 import { useAppSelector } from '@hook/';
 
@@ -30,11 +34,14 @@ import * as Styled from './adv.styled';
 
 export const Adv = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
+
   const { isOpenedComments } = useAppSelector(getStateAds);
   const user = useAppSelector(getStateUser);
 
   const { data: adById, isLoading } = useGetAdByIdQuery(id || '0');
   const { data: commentsById } = useGetCommentsByIdQuery(id || '0');
+  const [deletAd] = useDeleteCurrentAdMutation();
 
   const [currentAd, setCurrentAd] = useState<IAd>({
     id: 0,
@@ -61,6 +68,19 @@ export const Adv = () => {
     },
   });
   const [comments, setComments] = useState<IComment[] | []>([]);
+  const [isWaiting, setIsWaiting] = useState<boolean>(false);
+
+  const handleDeleteAd = () => {
+    setIsWaiting(true);
+
+    deletAd(currentAd.id)
+      .then(() => {
+        setIsWaiting(false);
+
+        navigate('/', { replace: true });
+        window.location.reload();
+      });
+  };
 
   useEffect(() => {
     if (adById) {
@@ -107,7 +127,13 @@ export const Adv = () => {
                       <Button text="Редактировать" type="button" onClick={ () => console.log('Click to edit-button') } />
                     </Styled.MainEditButtonBox>
                     <Styled.MainRemoveButtonBox>
-                      <Button text="Снять с публикации" type="button" onClick={ () => console.log('Click to remove-button') } />
+                      { isWaiting ? <LoadingButton /> : (
+                        <Button
+                          text="Снять с публикации"
+                          type="button"
+                          onClick={ handleDeleteAd }
+                        />
+                      ) }
                     </Styled.MainRemoveButtonBox>
                   </Styled.MainButtons>
                 ) }
