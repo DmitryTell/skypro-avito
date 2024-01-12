@@ -9,6 +9,7 @@ interface IAds {
   isOpenedComments: boolean;
   isOpenedChangingPassword: boolean;
   isOpenedNewAdv: boolean;
+  isOpenedEditAdv: boolean;
 }
 
 const initialState: IAds = {
@@ -17,6 +18,7 @@ const initialState: IAds = {
   isOpenedComments: false,
   isOpenedChangingPassword: false,
   isOpenedNewAdv: false,
+  isOpenedEditAdv: false,
 };
 
 export const adsSlice = createSlice({
@@ -48,6 +50,11 @@ export const adsSlice = createSlice({
 
       state.isOpenedNewAdv = isOpenedNewAdv;
     },
+    setIsOpenedEditAdv(state, action: PayloadAction<{ isOpenedEditAdv: boolean }>) {
+      const { isOpenedEditAdv } = action.payload;
+
+      state.isOpenedEditAdv = isOpenedEditAdv;
+    },
   },
 });
 
@@ -57,4 +64,5 @@ export const {
   setIsOpenedComments,
   setIsOpenedChangingPassword,
   setIsOpenedNewAdv,
+  setIsOpenedEditAdv,
 } = adsSlice.actions;

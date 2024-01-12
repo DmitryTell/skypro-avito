@@ -24,10 +24,12 @@ import {
   useGetCommentsByIdQuery,
   getStateUser,
   useDeleteCurrentAdMutation,
+  setIsOpenedEditAdv,
 } from '@redux/';
-import { useAppSelector } from '@hook/';
+import { useAppSelector, useAppDispatch } from '@hook/';
 
 import { Comments } from './comments';
+import { EditAdv } from './edit-adv';
 // eslint-disable-next-line import/max-dependencies
 import * as Styled from './adv.styled';
 
@@ -35,8 +37,9 @@ import * as Styled from './adv.styled';
 export const Adv = () => {
   const { id } = useParams();
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
 
-  const { isOpenedComments } = useAppSelector(getStateAds);
+  const { isOpenedComments, isOpenedEditAdv } = useAppSelector(getStateAds);
   const user = useAppSelector(getStateUser);
 
   const { data: adById, isLoading } = useGetAdByIdQuery(id || '0');
@@ -124,7 +127,11 @@ export const Adv = () => {
                 ) : (
                   <Styled.MainButtons>
                     <Styled.MainEditButtonBox>
-                      <Button text="Редактировать" type="button" onClick={ () => console.log('Click to edit-button') } />
+                      <Button
+                        text="Редактировать"
+                        type="button"
+                        onClick={ () => dispatch(setIsOpenedEditAdv({ isOpenedEditAdv: true })) }
+                      />
                     </Styled.MainEditButtonBox>
                     <Styled.MainRemoveButtonBox>
                       { isWaiting ? <LoadingButton /> : (
@@ -148,6 +155,12 @@ export const Adv = () => {
         <>
           <Backdrop />
           <Comments comments={ comments } />
+        </>
+      ) }
+      { isOpenedEditAdv && (
+        <>
+          <Backdrop />
+          <EditAdv currentAd={ currentAd } />
         </>
       ) }
     </Container>

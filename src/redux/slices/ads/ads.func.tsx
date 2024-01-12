@@ -46,6 +46,16 @@ export const adsProtectedApi = apiBaseSlice.injectEndpoints({
         },
       }),
     }),
+    changeCurrentAd: builder.mutation({
+      query: (args: { body: IRequestNewAd; id: number }) => ({
+        url: `/ads/${args.id}`,
+        method: 'PATCH',
+        body: args.body,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }),
+    }),
     addImageToAdv: builder.mutation({
       query: (args: { formData: object; id: number }) => ({
         url: `/ads/${args.id}/image`,
@@ -56,6 +66,15 @@ export const adsProtectedApi = apiBaseSlice.injectEndpoints({
     deleteCurrentAd: builder.mutation({
       query: (id: number) => ({
         url: `/ads/${id}`,
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }),
+    }),
+    deleteImageFromAdv: builder.mutation({
+      query: (args: { url: string; id: number }) => ({
+        url: `/ads/${args.id}/image?file_url=${args.url}`,
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
@@ -75,6 +94,8 @@ export const {
 export const {
   useGetCurrentUserAdsQuery,
   useCreateNewAdMutation,
+  useChangeCurrentAdMutation,
   useAddImageToAdvMutation,
   useDeleteCurrentAdMutation,
+  useDeleteImageFromAdvMutation,
 } = adsProtectedApi;
