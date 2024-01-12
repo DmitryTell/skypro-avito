@@ -54,6 +54,12 @@ export const SettingsPicture = styled.div`
     background: #f0f0f0;
     overflow: hidden;
 
+    & img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
     @media (max-width: 767px) {
         width: 132px;
         height: 132px;

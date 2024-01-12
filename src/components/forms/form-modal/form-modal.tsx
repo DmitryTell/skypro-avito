@@ -5,6 +5,7 @@ import { useAppDispatch, useAppSelector } from '@hook/';
 import {
   setIsOpenedComments,
   setIsOpenedChangingPassword,
+  setIsOpenedNewAdv,
   getStateAds,
 } from '@redux/';
 
@@ -21,16 +22,20 @@ export const FormModal: FC<IFormModal> = ({ title, children }) => {
   const {
     isOpenedComments,
     isOpenedChangingPassword,
+    isOpenedNewAdv,
   } = useAppSelector(getStateAds);
 
   const handleCloseModal = () => {
     if (isOpenedComments) {
       dispatch(setIsOpenedComments({ isOpenedComments: false }));
-      return;
     }
 
     if (isOpenedChangingPassword) {
       dispatch(setIsOpenedChangingPassword({ isOpenedChangingPassword: false }));
+    }
+
+    if (isOpenedNewAdv) {
+      dispatch(setIsOpenedNewAdv({ isOpenedNewAdv: false }));
     }
   };
 

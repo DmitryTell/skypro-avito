@@ -1,6 +1,8 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
-import { IAd, IComment } from '@interface/';
+import { IAd, IComment, IRequestNewAd } from '@interface/';
+
+import { apiBaseSlice } from '../api-base-reauth';
 
 
 export const adsApi = createApi({
@@ -28,9 +30,41 @@ export const adsApi = createApi({
   }),
 });
 
+export const adsProtectedApi = apiBaseSlice.injectEndpoints({
+  endpoints: (builder) => ({
+    getCurrentUserAds: builder.query<IAd[], void>({
+      query: () => '/ads/me',
+      providesTags: ['Ads'],
+    }),
+    createNewAd: builder.mutation({
+      query: ({ body }: { body: IRequestNewAd }) => ({
+        url: '/adstext',
+        method: 'POST',
+        body,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }),
+    }),
+    addImageToAdv: builder.mutation({
+      query: (args: { formData: object; id: number }) => ({
+        url: `/ads/${args.id}/image`,
+        method: 'POST',
+        body: args.formData,
+      }),
+    }),
+  }),
+});
+
 export const {
   useGetAllAdsQuery,
   useGetAdByIdQuery,
   useGetCommentsByIdQuery,
   useGetSellerAdsByUserIdQuery,
 } = adsApi;
+
+export const {
+  useGetCurrentUserAdsQuery,
+  useCreateNewAdMutation,
+  useAddImageToAdvMutation,
+} = adsProtectedApi;

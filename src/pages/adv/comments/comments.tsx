@@ -48,7 +48,8 @@ export const Comments: FC<IComments> = ({ comments }) => {
                 <Styled.ContentComment key={ String(comment.id) }>
                   <Styled.ContentCommentTopBox>
                     <Styled.ContentCommentAva>
-                      { Boolean(comment?.author?.avatar) && <img alt="User avatar" src={ `${process.env.REACT_APP_API_URL}${comment.author.avatar}` } /> }
+                      { Boolean(comment?.author?.avatar)
+                        && <img alt="User avatar" src={ `${process.env.REACT_APP_API_URL}${comment.author.avatar}` } /> }
                     </Styled.ContentCommentAva>
                     <Styled.ContentCommentAuthor>
                       { comment?.author?.name } <span>{ formatDate(comment?.created_on) }</span>

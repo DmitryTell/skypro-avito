@@ -9,8 +9,13 @@ import {
   ProfileSettingsLoading,
   Backdrop,
 } from '@components/';
-import { useGetUserQuery, getStateUser, getStateAds } from '@redux/';
-import { IUser } from '@interface/';
+import {
+  useGetUserQuery,
+  useGetCurrentUserAdsQuery,
+  getStateUser,
+  getStateAds,
+} from '@redux/';
+import { IUser, IAd } from '@interface/';
 import { useAppSelector } from '@hook/';
 import { USER_DATA } from '@utils/';
 
@@ -23,6 +28,7 @@ export const Profile = () => {
   const { isOpenedChangingPassword } = useAppSelector(getStateAds);
 
   const { data: currentUser, isLoading, error } = useGetUserQuery();
+  const { data: currentUserAds } = useGetCurrentUserAdsQuery();
 
   const [user, setUser] = useState<IUser>({
     id: 0,
@@ -33,6 +39,7 @@ export const Profile = () => {
     sells_from: null,
     phone: '',
   });
+  const [userAds, setUserAds] = useState<IAd[] | []>([]);
 
   useEffect(() => {
     const userSavedData = localStorage.getItem(USER_DATA);
@@ -42,6 +49,14 @@ export const Profile = () => {
       setUser(userData);
     }
   }, [currentUser]);
+
+  useEffect(() => {
+    if (currentUserAds) {
+      const result = Object.values(currentUserAds);
+
+      setUserAds(result);
+    }
+  }, [currentUserAds]);
 
   return (
     <Container>
@@ -59,7 +74,7 @@ export const Profile = () => {
           </>
         ) }
         <Styled.MainSubtitle>Мои товары</Styled.MainSubtitle>
-        <AdvList isLoading={ isLoading } items={ [] } />
+        <AdvList isLoading={ isLoading } items={ userAds } />
       </Styled.Main>
       <Footer />
       { isOpenedChangingPassword && (
