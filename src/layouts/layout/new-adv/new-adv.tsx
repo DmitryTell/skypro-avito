@@ -22,39 +22,34 @@ export const NewAdv = () => {
   const [createAd] = useCreateNewAdMutation();
   const [addImage] = useAddImageToAdvMutation();
 
-  const [images, setImages] = useState<(string | null)[]>([null, null, null, null, null]);
+  const [images, setImages] = useState<string[] | []>([]);
   const [title, setTitle] = useState<string>('');
   const [description, setDescription] = useState<string>('');
   const [price, setPrice] = useState<string>('');
-  const [files, setFiles] = useState<(File | null)[]>([null, null, null, null, null]);
+  const [files, setFiles] = useState<File[] | []>([]);
   const [isWaiting, setIsWaiting] = useState<boolean>(false);
 
-  const handleSetImage = (event: React.ChangeEvent<HTMLInputElement>, index: number) => {
+  const handleSetImage = (event: React.ChangeEvent<HTMLInputElement>) => {
     event.preventDefault();
 
     const file = event.target.files?.[0];
 
     if (file) {
       const imgUrl = URL.createObjectURL(file);
-      const imgPaths = [...images];
-      const imgFiles = [...files];
 
-      imgPaths[index] = imgUrl;
-      imgFiles[index] = file;
-
-      setImages([...imgPaths]);
-      setFiles([...imgFiles]);
+      setImages([...images, imgUrl]);
+      setFiles([...files, file]);
     }
   };
 
-  const handleClosePicture = (index: number) => {
-    const imgPaths = [...images];
+  const handleClosePicture = () => {
+    const imgUrls = [...images];
     const imgFiles = [...files];
 
-    imgPaths[index] = null;
-    imgFiles[index] = null;
+    imgUrls.pop();
+    imgFiles.pop();
 
-    setImages([...imgPaths]);
+    setImages([...imgUrls]);
     setFiles([...imgFiles]);
   };
 
@@ -122,29 +117,30 @@ export const NewAdv = () => {
               <Styled.ContentInfoPictureBox>
                 <Styled.ContentInfoText>Фотографии товара <span>не более 5 фотографий</span></Styled.ContentInfoText>
                 <Styled.ContentInfoPictureList>
-                  { ['1', '2', '3', '4', '5'].map((item, index) => (
-                    <Styled.ContentInfoPicture
-                      key={ item }
-                      onClick={ () => document.getElementById(`upload-img-${item}`)?.click() }
-                    >
-                      { images[index]
-                        ? (
-                          <>
-                            <img alt="Item img" src={ images[index] || '' } />
-                            <Styled.ContentInfoPictureClose onClick={ () => handleClosePicture(index) }>
-                              X
-                            </Styled.ContentInfoPictureClose>
-                          </>
-                        )
-                        : <EmptyPicture /> }
-                      <Styled.ContentInfoPictureInput
-                        disabled={ Boolean(images[index]) }
-                        id={ `upload-img-${item}` }
-                        type="file"
-                        onChange={ (event) => handleSetImage(event, index) }
-                      />
+                  { Boolean(images.length) && images.map((image, index) => (
+                    <Styled.ContentInfoPicture key={ String(index + 1) }>
+                      <>
+                        <img alt="Item img" src={ image || '' } />
+                        { index === images.length - 1 && (
+                          <Styled.ContentInfoPictureClose onClick={ () => handleClosePicture() }>
+                            X
+                          </Styled.ContentInfoPictureClose>
+                        ) }
+                      </>
                     </Styled.ContentInfoPicture>
                   )) }
+                  { images.length < 5 && (
+                    <Styled.ContentInfoPicture
+                      onClick={ () => document.getElementById(`upload-img-${images.length + 1}`)?.click() }
+                    >
+                      <EmptyPicture />
+                      <Styled.ContentInfoPictureInput
+                        id={ `upload-img-${images.length + 1}` }
+                        type="file"
+                        onChange={ (event) => handleSetImage(event) }
+                      />
+                    </Styled.ContentInfoPicture>
+                  ) }
                 </Styled.ContentInfoPictureList>
               </Styled.ContentInfoPictureBox>
             </Styled.ContentInfo>

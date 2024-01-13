@@ -1,5 +1,6 @@
 import { FC, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useSwipeable } from 'react-swipeable';
 
 import { IImg } from '@interface/';
 
@@ -16,8 +17,30 @@ export const PictureBoxMobile: FC<IPictureBoxMobile> = ({ images }) => {
 
   const [currentIndex, setCurrentIndex] = useState<number>(0);
 
+  const handleSwipeLeft = () => {
+    if (currentIndex < images.length - 1) {
+      setCurrentIndex(currentIndex + 1);
+    } else {
+      setCurrentIndex(0);
+    }
+  };
+
+  const handleSwipeRight = () => {
+    if (currentIndex > 0) {
+      setCurrentIndex(currentIndex - 1);
+    } else {
+      setCurrentIndex(images.length - 1);
+    }
+  };
+
+  const swipeHandlers = useSwipeable({
+    onSwipedLeft: handleSwipeLeft,
+    onSwipedRight: handleSwipeRight,
+  });
+
   return (
-    <Styled.Box>
+    // eslint-disable-next-line react/jsx-props-no-spreading
+    <Styled.Box { ...swipeHandlers }>
       <Styled.BoxContainer>
         { Boolean(images?.length) && <img alt="Adv img" src={ `${process.env.REACT_APP_API_URL}${images[currentIndex].url}` } /> }
         <BackButtonMobile type="button" onClick={ () => navigate('/', { replace: true }) } />

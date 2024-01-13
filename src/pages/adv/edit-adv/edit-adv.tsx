@@ -52,6 +52,7 @@ export const EditAdv: FC<IEditAdv> = ({ currentAd }) => {
         const newData = Object.values(data)[0];
 
         setImages(newData.images);
+        setIsDisabled(false);
       });
     }
   };
@@ -66,6 +67,7 @@ export const EditAdv: FC<IEditAdv> = ({ currentAd }) => {
       const newData = Object.values(data)[0];
 
       setImages(newData.images);
+      setIsDisabled(false);
     });
   };
 
@@ -137,28 +139,30 @@ export const EditAdv: FC<IEditAdv> = ({ currentAd }) => {
               <Styled.ContentInfoPictureBox>
                 <Styled.ContentInfoText>Фотографии товара <span>не более 5 фотографий</span></Styled.ContentInfoText>
                 <Styled.ContentInfoPictureList>
-                  { ['1', '2', '3', '4', '5'].map((item, index) => (
-                    <Styled.ContentInfoPicture
-                      key={ item }
-                      onClick={ () => document.getElementById(`upload-img-${item}`)?.click() }
-                    >
-                      { images[index]
-                        ? (
-                          <>
-                            <img alt="Item img" src={ `${process.env.REACT_APP_API_URL}${images[index].url}` } />
-                            <Styled.ContentInfoPictureClose onClick={ () => handleDeleteImage(index) }>
-                              X
-                            </Styled.ContentInfoPictureClose>
-                          </>
-                        ) : <EmptyPicture /> }
-                      <Styled.ContentInfoPictureInput
-                        disabled={ Boolean(images[index]) }
-                        id={ `upload-img-${item}` }
-                        type="file"
-                        onChange={ handleSetImage }
-                      />
+                  { Boolean(images.length) && images.map((image, index) => (
+                    <Styled.ContentInfoPicture key={ String(image.id) }>
+                      <>
+                        <img alt="Item img" src={ `${process.env.REACT_APP_API_URL}${image.url}` } />
+                        { index === images.length - 1 && (
+                          <Styled.ContentInfoPictureClose onClick={ () => handleDeleteImage(index) }>
+                            X
+                          </Styled.ContentInfoPictureClose>
+                        ) }
+                      </>
                     </Styled.ContentInfoPicture>
                   )) }
+                  { images.length < 5 && (
+                    <Styled.ContentInfoPicture
+                      onClick={ () => document.getElementById(`upload-img-${images.length + 1}`)?.click() }
+                    >
+                      <EmptyPicture />
+                      <Styled.ContentInfoPictureInput
+                        id={ `upload-img-${images.length + 1}` }
+                        type="file"
+                        onChange={ (event) => handleSetImage(event) }
+                      />
+                    </Styled.ContentInfoPicture>
+                  ) }
                 </Styled.ContentInfoPictureList>
               </Styled.ContentInfoPictureBox>
             </Styled.ContentInfo>

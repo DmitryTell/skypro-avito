@@ -168,18 +168,7 @@ export const ContentInfoPictureList = styled.ul`
     gap: 10px;
 
     @media (max-width: 767px) {
-        width: 100%;
-        flex-wrap: nowrap;
-        overflow: auto;
-        scrollbar-width: 0;
-
-        &::-webkit-scrollbar {
-            width: 0;
-        }
-
-        &::-moz-scrollbar {
-            width: 0;
-        }
+        justify-content: center;
     }
 `;
 
@@ -193,6 +182,10 @@ export const ContentInfoPicture = styled.li`
     align-items: center;
     cursor: pointer;
     transition: all 0.5s;
+
+    & svg:hover {
+        opacity: 0.5;
+    }
 
     & img {
         width: 100%;
