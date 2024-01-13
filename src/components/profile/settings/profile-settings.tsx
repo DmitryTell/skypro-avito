@@ -11,7 +11,6 @@ import {
   setIsOpenedChangingPassword,
 } from '@redux/';
 import { useAppDispatch } from '@hook/';
-import { USER_DATA } from '@utils/';
 
 import { SettingsInput, SettingsInputPhone } from '../ui';
 import * as Styled from './profile-settings.styled';
@@ -52,7 +51,6 @@ export const ProfileSettings: FC<IProfileSettings> = ({ user }) => {
       surname,
       phone,
       city,
-      avatar,
     };
 
     setIsWaiting(true);
@@ -64,10 +62,9 @@ export const ProfileSettings: FC<IProfileSettings> = ({ user }) => {
         setIsDisabled(true);
 
         dispatch(setNewUserState({ userState: { id: data.id, username: data.name } }));
-
-        localStorage.setItem(USER_DATA, JSON.stringify(data));
         // eslint-disable-next-line no-alert
         alert('Данные обновлены');
+        window.location.reload();
       })
       .catch(() => {
         setIsWaiting(false);
@@ -90,8 +87,7 @@ export const ProfileSettings: FC<IProfileSettings> = ({ user }) => {
         const userData = Object.values(data)[0];
 
         setAvatar(userData.avatar);
-
-        localStorage.setItem(USER_DATA, JSON.stringify(userData));
+        window.location.reload();
       });
     }
   };

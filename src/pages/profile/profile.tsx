@@ -17,7 +17,6 @@ import {
 } from '@redux/';
 import { IUser, IAd } from '@interface/';
 import { useAppSelector } from '@hook/';
-import { USER_DATA } from '@utils/';
 
 import { ChangingPassword } from './changing-password';
 import * as Styled from './profile.styled';
@@ -42,11 +41,8 @@ export const Profile = () => {
   const [userAds, setUserAds] = useState<IAd[] | []>([]);
 
   useEffect(() => {
-    const userSavedData = localStorage.getItem(USER_DATA);
-    const userData = userSavedData ? JSON.parse(userSavedData) as IUser : currentUser;
-
-    if (userData) {
-      setUser(userData);
+    if (currentUser) {
+      setUser(currentUser);
     }
   }, [currentUser]);
 

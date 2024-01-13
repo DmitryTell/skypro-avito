@@ -17,7 +17,6 @@ export interface IRequestChangeUser {
   surname: string;
   phone: string;
   city: string;
-  avatar: string | null;
 }
 
 export interface IRequestChangePassword {
