@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { USER_STATE_DATA } from '@utils/';
 
+const USER_STATE_DATA = 'user-state-data';
 
 interface IUserState {
   id: number | null;
