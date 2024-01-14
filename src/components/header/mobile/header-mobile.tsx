@@ -2,7 +2,9 @@ import { FC } from 'react';
 
 import { ReactComponent as LogoMobile } from '@assets/icon/LogoMobile.svg';
 import { useAppSelector, useAppDispatch } from '@hook/';
-import { setSearchText, setAllAds, getStateAds } from '@redux/';
+import {
+  setSearchText, setAllAds, getStateAds, getStateAuth
+} from '@redux/';
 import { searchAd } from '@utils/';
 
 import { Search, ExitButton } from '../ui';
@@ -17,6 +19,7 @@ export const HeaderMobile: FC<IHeaderMobile> = ({ currentLocation }) => {
   const dispatch = useAppDispatch();
 
   const { allAds, searchText } = useAppSelector(getStateAds);
+  const { isAuth } = useAppSelector(getStateAuth);
 
   const handleSearchAd = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === 'Enter') {
@@ -38,7 +41,7 @@ export const HeaderMobile: FC<IHeaderMobile> = ({ currentLocation }) => {
           onKeyDown={ handleSearchAd }
         />
       ) }
-      <ExitButton />
+      { isAuth && <ExitButton /> }
     </Styled.HeaderMobile>
   );
 };

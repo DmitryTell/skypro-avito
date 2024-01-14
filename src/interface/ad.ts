@@ -17,3 +17,9 @@ export interface IAd {
   created_on: string;
   user: IUser;
 }
+
+export interface IRequestNewAd {
+  title: string;
+  description: string;
+  price: number;
+}

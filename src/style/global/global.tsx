@@ -67,4 +67,22 @@ export const GlobalStyle = createGlobalStyle`
             background: #f0f0f0;
         }
     }
+
+    @-webkit-keyframes button-animation {
+        0% {
+            background: #c4c4c4;
+        }
+        100% {
+            background: #f0f0f0;
+        }
+    }
+
+    @keyframes button-animation {
+        0% {
+            background: #009ee4;
+        }
+        100% {
+            background: #37c3ff;
+        }
+    }
 `;

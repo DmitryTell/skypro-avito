@@ -1,18 +1,26 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { IAd } from '@interface/';
+import { IAd, IComment } from '@interface/';
 
 
 interface IAds {
   allAds: IAd[];
+  comments: IComment[];
   searchText: string;
-  isOpenedModal: boolean;
+  isOpenedComments: boolean;
+  isOpenedChangingPassword: boolean;
+  isOpenedNewAdv: boolean;
+  isOpenedEditAdv: boolean;
 }
 
 const initialState: IAds = {
   allAds: [],
+  comments: [],
   searchText: '',
-  isOpenedModal: false,
+  isOpenedComments: false,
+  isOpenedChangingPassword: false,
+  isOpenedNewAdv: false,
+  isOpenedEditAdv: false,
 };
 
 export const adsSlice = createSlice({
@@ -24,17 +32,45 @@ export const adsSlice = createSlice({
 
       state.allAds = ads;
     },
+    setComments(state, action: PayloadAction<{ comments: IComment[] }>) {
+      const { comments } = action.payload;
+
+      state.comments = comments;
+    },
     setSearchText(state, action: PayloadAction<{ searchText: string }>) {
       const { searchText } = action.payload;
 
       state.searchText = searchText;
     },
-    setIsOpenedModal(state, action: PayloadAction<{ isOpenedModal: boolean }>) {
-      const { isOpenedModal } = action.payload;
+    setIsOpenedComments(state, action: PayloadAction<{ isOpenedComments: boolean }>) {
+      const { isOpenedComments } = action.payload;
 
-      state.isOpenedModal = isOpenedModal;
+      state.isOpenedComments = isOpenedComments;
+    },
+    setIsOpenedChangingPassword(state, action: PayloadAction<{ isOpenedChangingPassword: boolean }>) {
+      const { isOpenedChangingPassword } = action.payload;
+
+      state.isOpenedChangingPassword = isOpenedChangingPassword;
+    },
+    setIsOpenedNewAdv(state, action: PayloadAction<{ isOpenedNewAdv: boolean }>) {
+      const { isOpenedNewAdv } = action.payload;
+
+      state.isOpenedNewAdv = isOpenedNewAdv;
+    },
+    setIsOpenedEditAdv(state, action: PayloadAction<{ isOpenedEditAdv: boolean }>) {
+      const { isOpenedEditAdv } = action.payload;
+
+      state.isOpenedEditAdv = isOpenedEditAdv;
     },
   },
 });
 
-export const { setSearchText, setAllAds, setIsOpenedModal } = adsSlice.actions;
+export const {
+  setSearchText,
+  setAllAds,
+  setComments,
+  setIsOpenedComments,
+  setIsOpenedChangingPassword,
+  setIsOpenedNewAdv,
+  setIsOpenedEditAdv,
+} = adsSlice.actions;

@@ -9,3 +9,17 @@ export interface IUser {
   role?: string;
   surname?: string;
 }
+
+export interface IRequestChangeUser {
+  role: string;
+  email: string;
+  name: string;
+  surname: string;
+  phone: string;
+  city: string;
+}
+
+export interface IRequestChangePassword {
+  password_1: string;
+  password_2: string;
+}

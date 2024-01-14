@@ -14,3 +14,8 @@ export interface IComment {
   created_on: string;
   author: IAuthor;
 }
+
+export interface INewCommentRequest {
+  body: { text: string };
+  id: number;
+}

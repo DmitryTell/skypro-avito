@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { ContainerAuth } from '@layouts/';
 import { HeaderMobile, FormAuth, Footer } from '@components/';
-import { Input, Button } from '@shared/';
+import { Input, Button, LoadingButton } from '@shared/';
 import { registerUser } from '@api/';
 
 import * as Styled from './sign-up.styled';
@@ -96,12 +96,13 @@ export const SignUp = () => {
           <Input placeholder="Город (необязательно)" type="text" onChange={ (e) => setCity(e.target.value) } />
         </Styled.Inputs>
         <Styled.ErrorBox>
-          { isWaiting && <Styled.WaitingText>Подождите...</Styled.WaitingText> }
           { Boolean(errorText) && <Styled.ErrorText>Ошибка: { errorText }</Styled.ErrorText> }
         </Styled.ErrorBox>
         <Styled.Buttons>
           <Styled.ButtonBox>
-            <Button disabled={ isWaiting } text="Зарегистрироваться" type="button" onClick={ handleRegister } />
+            { isWaiting
+              ? <LoadingButton />
+              : <Button text="Зарегистрироваться" type="button" onClick={ handleRegister } /> }
           </Styled.ButtonBox>
         </Styled.Buttons>
       </FormAuth>

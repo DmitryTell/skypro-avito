@@ -1,31 +1,33 @@
 import { FC, ReactNode } from 'react';
 
-import { IComment, IUser } from '@interface/';
+import { IUser, IComment } from '@interface/';
 import { formatSellsFromDate } from '@utils/';
 import { useAppDispatch } from '@hook/';
-import { setIsOpenedModal } from '@redux/';
+import {
+  setIsOpenedComments,
+} from '@redux/';
 
 import * as Styled from './adv-content-form.styled';
 
 
 interface IAdvContentForm {
+  comments: IComment[];
   title: string;
   date: string;
-  comments: IComment[];
   price: number;
   user: IUser;
   children: ReactNode;
 }
 
 export const AdvContentForm: FC<IAdvContentForm> = ({
-  title, date, comments, price, user, children
+  comments, title, date, price, user, children
 }) => {
   const dispatch = useAppDispatch();
 
   const handleClickLink = (event: React.MouseEvent) => {
     event.preventDefault();
 
-    dispatch(setIsOpenedModal({ isOpenedModal: true }));
+    dispatch(setIsOpenedComments({ isOpenedComments: true }));
   };
 
   return (
@@ -35,7 +37,9 @@ export const AdvContentForm: FC<IAdvContentForm> = ({
         <Styled.FormTextBox>
           <Styled.FormText>{ date }</Styled.FormText>
           <Styled.FormText>{ user.city }</Styled.FormText>
-          <Styled.FormLink onClick={ handleClickLink }>{ comments?.length } отзывов</Styled.FormLink>
+          <Styled.FormLink onClick={ (event) => handleClickLink(event) }>
+            { comments.length } отзывов
+          </Styled.FormLink>
         </Styled.FormTextBox>
       </Styled.FormTitlebox>
       <Styled.FormPricePhoneBox>

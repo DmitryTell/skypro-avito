@@ -1,29 +1,50 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { IUser, IRequestChangeUser, IRequestChangePassword } from '@interface/';
 
-import { IUser } from '@interface/';
-
-import type { RootState } from '@redux/';
+import { apiBaseSlice } from '../api-base-reauth';
 
 
-export const userApi = createApi({
-  reducerPath: 'userApi',
-  baseQuery: fetchBaseQuery({
-    baseUrl: process.env.REACT_APP_API_URL,
-    prepareHeaders: (headers, { getState }) => {
-      const token = (getState() as RootState).user.access;
-
-      if (token) {
-        headers.set('Authorization', `Bearer ${token}`);
-      }
-
-      return headers;
-    },
-  }),
+export const userApi = apiBaseSlice.injectEndpoints({
   endpoints: (builder) => ({
     getUser: builder.query<IUser, void>({
       query: () => '/user',
+      providesTags: ['User'],
+    }),
+    changeUserData: builder.mutation({
+      query: ({ body }: { body: IRequestChangeUser }) => ({
+        url: '/user',
+        method: 'PATCH',
+        body,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }),
+      invalidatesTags: ['User'],
+    }),
+    changePassword: builder.mutation({
+      query: ({ body }: { body: IRequestChangePassword }) => ({
+        url: '/user/password',
+        method: 'PUT',
+        body,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }),
+      invalidatesTags: ['User'],
+    }),
+    setUserAvatar: builder.mutation({
+      query: (formData: object) => ({
+        url: '/user/avatar',
+        method: 'POST',
+        body: formData,
+      }),
+      invalidatesTags: ['User'],
     }),
   }),
 });
 
-export const { useGetUserQuery } = userApi;
+export const {
+  useGetUserQuery,
+  useChangeUserDataMutation,
+  useChangePasswordMutation,
+  useSetUserAvatarMutation,
+} = userApi;

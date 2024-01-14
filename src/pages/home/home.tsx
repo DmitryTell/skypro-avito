@@ -14,7 +14,7 @@ import * as Styled from './home.styled';
 
 
 export const Home = () => {
-  const { data, isLoading, error } = useGetAllAdsQuery(0);
+  const { data, isLoading, error } = useGetAllAdsQuery();
 
   const dispatch = useAppDispatch();
 

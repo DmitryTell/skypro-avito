@@ -54,10 +54,20 @@ export const SettingsPicture = styled.div`
     background: #f0f0f0;
     overflow: hidden;
 
+    & img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
     @media (max-width: 767px) {
         width: 132px;
         height: 132px;
     }
+`;
+
+export const SettingsFileInput = styled.input`
+    display: none;
 `;
 
 export const SettingsLink = styled.a`
@@ -95,8 +105,29 @@ export const SettingsFormInputBox = styled.div`
     }
 `;
 
+export const SettingsButtons = styled.div`
+    display: flex;
+    gap: 10px;
+
+    @media (max-width: 767px) {
+        width: 300px;
+        flex-flow: column;
+        align-self: center;
+    }
+`;
+
 export const SettingsButtonBox = styled.div`
     width: 154px;
+    height: 50px;
+
+    @media (max-width: 767px) {
+        width: 100%;
+        height: 46px;
+    }
+`;
+
+export const SettingsButtonPasswordBox = styled.div`
+    width: 225px;
     height: 50px;
 
     @media (max-width: 767px) {

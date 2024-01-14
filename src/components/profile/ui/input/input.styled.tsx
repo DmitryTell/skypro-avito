@@ -1,8 +1,12 @@
 import styled from 'styled-components';
 
 
-export const Label = styled.label`
-    color: #c4c4c4;
+interface IProps {
+  $isFocused: boolean;
+}
+
+export const Label = styled.label<IProps>`
+    color: ${(props) => (props.$isFocused ? '#009EE4' : '#c4c4c4')};
     font-size: 16px;
     font-weight: 500;
     line-height: 150%;
@@ -13,12 +17,12 @@ export const Label = styled.label`
     }
 `;
 
-export const Input = styled.input`
+export const Input = styled.input<IProps>`
     width: 300px;
     height: 50px;
     padding: 13px 19px;
     border-radius: 6px;
-    border: 1px solid rgba(0, 0, 0, 0.20);
+    border: 1px solid ${(props) => (props.$isFocused ? '#009EE4' : 'rgba(0, 0, 0, 0.20)')};
     outline: none;
     color: #000;
     font-size: 16px;

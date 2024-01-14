@@ -1,8 +1,8 @@
 import { FC } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { useAppSelector } from '@hook/';
-import { getStateUser } from '@redux/';
+import { useAppSelector, useAppDispatch } from '@hook/';
+import { getStateAuth, setIsOpenedNewAdv } from '@redux/';
 
 import { HeaderButton, ExitButton } from './ui';
 import * as Styled from './header.styled';
@@ -14,8 +14,9 @@ interface IHeader {
 
 export const Header: FC<IHeader> = ({ currentLocation }) => {
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
 
-  const { isAuth } = useAppSelector(getStateUser);
+  const { isAuth } = useAppSelector(getStateAuth);
 
   return (
     <Styled.Header>
@@ -28,11 +29,21 @@ export const Header: FC<IHeader> = ({ currentLocation }) => {
           ) : (
             <>
               <Styled.HeaderButtonBoxNewAdv>
-                <HeaderButton text="Разместить объявление" type="button" onClick={ () => console.log('Click') } />
+                <HeaderButton
+                  text="Разместить объявление"
+                  type="button"
+                  onClick={ () => dispatch(setIsOpenedNewAdv({ isOpenedNewAdv: true })) }
+                />
               </Styled.HeaderButtonBoxNewAdv>
               { currentLocation !== '/profile' && (
                 <Styled.HeaderButtonBoxToProfile>
-                  <HeaderButton text="Личный кабинет" type="button" onClick={ () => navigate('/profile', { replace: true }) } />
+                  <HeaderButton
+                    text="Личный кабинет"
+                    type="button"
+                    onClick={ () => {
+                      navigate('/profile', { replace: true });
+                    } }
+                  />
                 </Styled.HeaderButtonBoxToProfile>
               ) }
               <ExitButton />

@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 
 import { Container } from '@layouts/';
 import {
@@ -15,23 +15,37 @@ import {
   ACLoadingDescription,
   Backdrop,
 } from '@components/';
-import { Button, ShowPhoneButton } from '@shared/';
+import { Button, ShowPhoneButton, LoadingButton } from '@shared/';
 import { formatDate } from '@utils/';
-import { IAd, IComment } from '@interface/';
-import { useGetAdByIdQuery, getStateAds, useGetCommentsByIdQuery } from '@redux/';
-import { useAppSelector } from '@hook/';
+import { IAd } from '@interface/';
+import {
+  useGetAdByIdQuery,
+  getStateAds,
+  useGetCommentsByIdQuery,
+  getStateUser,
+  useDeleteCurrentAdMutation,
+  setIsOpenedEditAdv,
+  setComments,
+} from '@redux/';
+import { useAppSelector, useAppDispatch } from '@hook/';
 
 import { Comments } from './comments';
+import { EditAdv } from './edit-adv';
 // eslint-disable-next-line import/max-dependencies
 import * as Styled from './adv.styled';
 
 
 export const Adv = () => {
   const { id } = useParams();
-  const { isOpenedModal } = useAppSelector(getStateAds);
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+
+  const { comments, isOpenedComments, isOpenedEditAdv } = useAppSelector(getStateAds);
+  const user = useAppSelector(getStateUser);
 
   const { data: adById, isLoading } = useGetAdByIdQuery(id || '0');
-  const { data: commentsById } = useGetCommentsByIdQuery(id || '0');
+  const { data: commentsById } = useGetCommentsByIdQuery(Number(id) || 0);
+  const [deletAd] = useDeleteCurrentAdMutation();
 
   const [currentAd, setCurrentAd] = useState<IAd>({
     id: 0,
@@ -57,8 +71,18 @@ export const Adv = () => {
       phone: '',
     },
   });
-  const [comments, setComments] = useState<IComment[] | []>([]);
-  const [currentUserId, setCurrentUserId] = useState<number | null>(null);
+  const [isWaiting, setIsWaiting] = useState<boolean>(false);
+
+  const handleDeleteAd = () => {
+    setIsWaiting(true);
+
+    deletAd(currentAd.id)
+      .then(() => {
+        setIsWaiting(false);
+
+        navigate('/', { replace: true });
+      });
+  };
 
   useEffect(() => {
     if (adById) {
@@ -70,9 +94,9 @@ export const Adv = () => {
     if (commentsById) {
       const result = Object.values(commentsById);
 
-      setComments(result);
+      dispatch(setComments({ comments: result }));
     }
-  }, [commentsById]);
+  }, [commentsById, dispatch]);
 
   return (
     <Container>
@@ -95,17 +119,27 @@ export const Adv = () => {
                 title={ currentAd?.title }
                 user={ currentAd.user }
               >
-                { currentUserId !== currentAd?.user_id ? (
+                { user?.id !== currentAd?.user_id ? (
                   <Styled.MainPhoneButtonBox>
                     <ShowPhoneButton disabled={ isLoading } userPhone={ currentAd?.user?.phone } />
                   </Styled.MainPhoneButtonBox>
                 ) : (
                   <Styled.MainButtons>
                     <Styled.MainEditButtonBox>
-                      <Button text="Редактировать" type="button" onClick={ () => console.log('Click to edit-button') } />
+                      <Button
+                        text="Редактировать"
+                        type="button"
+                        onClick={ () => dispatch(setIsOpenedEditAdv({ isOpenedEditAdv: true })) }
+                      />
                     </Styled.MainEditButtonBox>
                     <Styled.MainRemoveButtonBox>
-                      <Button text="Снять с публикации" type="button" onClick={ () => console.log('Click to remove-button') } />
+                      { isWaiting ? <LoadingButton /> : (
+                        <Button
+                          text="Снять с публикации"
+                          type="button"
+                          onClick={ handleDeleteAd }
+                        />
+                      ) }
                     </Styled.MainRemoveButtonBox>
                   </Styled.MainButtons>
                 ) }
@@ -116,10 +150,16 @@ export const Adv = () => {
         { isLoading ? <ACLoadingDescription /> : <AdvDescription description={ currentAd?.description } /> }
       </Styled.Main>
       <Footer />
-      { isOpenedModal && (
+      { isOpenedComments && (
         <>
           <Backdrop />
-          <Comments comments={ comments } />
+          <Comments id={ currentAd.id } />
+        </>
+      ) }
+      { isOpenedEditAdv && (
+        <>
+          <Backdrop />
+          <EditAdv currentAd={ currentAd } />
         </>
       ) }
     </Container>
