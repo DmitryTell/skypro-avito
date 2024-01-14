@@ -93,5 +93,5 @@ BaseQueryFn<FetchArgs | string, unknown, FetchBaseQueryError, Record<string, unk
 export const apiBaseSlice = createApi({
   baseQuery: baseQueryWithReauth,
   endpoints: () => ({}),
-  tagTypes: ['Ads', 'Comments'],
+  tagTypes: ['Ads', 'Ad', 'Comments', 'User'],
 });

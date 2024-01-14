@@ -1,5 +1,4 @@
 import { FC, useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 
 import { HeaderMobile, FormModal, Footer } from '@components/';
 import { Button, LoadingButton } from '@shared/';
@@ -21,7 +20,6 @@ interface IEditAdv {
 }
 
 export const EditAdv: FC<IEditAdv> = ({ currentAd }) => {
-  const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
   const [changeAd] = useChangeCurrentAdMutation();
@@ -96,7 +94,6 @@ export const EditAdv: FC<IEditAdv> = ({ currentAd }) => {
         setIsDisabled(true);
 
         dispatch(setIsOpenedEditAdv({ isOpenedEditAdv: false }));
-        navigate(`/adv/${newData.id}`);
         window.location.reload();
       });
   };

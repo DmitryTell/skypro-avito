@@ -1,33 +1,61 @@
 import { FC, useState } from 'react';
 
-import { IComment } from '@interface/';
+import { INewCommentRequest } from '@interface/';
 import {
   HeaderMobile, FormModal, Footer
 } from '@components/';
-import { Button } from '@shared/';
+import { Button, LoadingButton } from '@shared/';
 import { formatDate } from '@utils/';
-import { useAppSelector } from '@hook/';
-import { getStateAuth } from '@redux/';
+import { useAppSelector, useAppDispatch } from '@hook/';
+import {
+  getStateAuth,
+  getStateAds,
+  useAddNewCommentMutation,
+  setComments,
+} from '@redux/';
 
 import * as Styled from './comments.styled';
 
 
 interface IComments {
-  comments: IComment[];
+  id: number;
 }
 
-export const Comments: FC<IComments> = ({ comments }) => {
+export const Comments: FC<IComments> = ({ id }) => {
+  const dispatch = useAppDispatch();
   const { isAuth } = useAppSelector(getStateAuth);
+  const { comments } = useAppSelector(getStateAds);
 
-  const [commentText, setCommentText] = useState<string>('');
+  const [addComment] = useAddNewCommentMutation();
+
+  const [text, setText] = useState<string>('');
+  const [isWaiting, setIsWaiting] = useState<boolean>(false);
 
   const handleAddComment = () => {
     if (!isAuth) {
       // eslint-disable-next-line no-alert
       alert('Только авторизованные пользователи могут оставлять комментарии');
 
-      setCommentText('');
+      setText('');
+      return;
     }
+
+    setIsWaiting(true);
+
+    const args: INewCommentRequest = {
+      body: { text },
+      id,
+    };
+
+    addComment(args)
+      .then((newComment) => {
+        const commentData = Object.values(newComment)[0];
+
+        setText('');
+        setIsWaiting(false);
+
+        dispatch(setComments({ comments: [commentData, ...comments] }));
+      });
   };
 
   return (
@@ -38,9 +66,15 @@ export const Comments: FC<IComments> = ({ comments }) => {
           <Styled.Content>
             <Styled.ContentForm>
               <Styled.ContentFormTitle>Добавить отзыв</Styled.ContentFormTitle>
-              <Styled.ContentFormArea placeholder="Введите отзыв" value={ commentText } onChange={ (e) => setCommentText(e.target.value) } />
+              <Styled.ContentFormArea
+                placeholder="Введите отзыв"
+                value={ text }
+                onChange={ (e) => setText(e.target.value) }
+              />
               <Styled.ContentFormButtonBox>
-                <Button disabled={ !commentText } text="Опубликовать" type="button" onClick={ handleAddComment } />
+                { isWaiting
+                  ? <LoadingButton />
+                  : <Button disabled={ !text } text="Опубликовать" type="button" onClick={ handleAddComment } /> }
               </Styled.ContentFormButtonBox>
             </Styled.ContentForm>
             <Styled.ContentComments>

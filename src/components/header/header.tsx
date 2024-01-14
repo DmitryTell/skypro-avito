@@ -40,7 +40,9 @@ export const Header: FC<IHeader> = ({ currentLocation }) => {
                   <HeaderButton
                     text="Личный кабинет"
                     type="button"
-                    onClick={ () => navigate('/profile', { replace: true }) }
+                    onClick={ () => {
+                      navigate('/profile', { replace: true });
+                    } }
                   />
                 </Styled.HeaderButtonBoxToProfile>
               ) }

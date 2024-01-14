@@ -7,6 +7,7 @@ export const userApi = apiBaseSlice.injectEndpoints({
   endpoints: (builder) => ({
     getUser: builder.query<IUser, void>({
       query: () => '/user',
+      providesTags: ['User'],
     }),
     changeUserData: builder.mutation({
       query: ({ body }: { body: IRequestChangeUser }) => ({
@@ -17,6 +18,7 @@ export const userApi = apiBaseSlice.injectEndpoints({
           'Content-Type': 'application/json',
         },
       }),
+      invalidatesTags: ['User'],
     }),
     changePassword: builder.mutation({
       query: ({ body }: { body: IRequestChangePassword }) => ({
@@ -27,6 +29,7 @@ export const userApi = apiBaseSlice.injectEndpoints({
           'Content-Type': 'application/json',
         },
       }),
+      invalidatesTags: ['User'],
     }),
     setUserAvatar: builder.mutation({
       query: (formData: object) => ({
@@ -34,6 +37,7 @@ export const userApi = apiBaseSlice.injectEndpoints({
         method: 'POST',
         body: formData,
       }),
+      invalidatesTags: ['User'],
     }),
   }),
 });

@@ -1,10 +1,11 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { IAd } from '@interface/';
+import { IAd, IComment } from '@interface/';
 
 
 interface IAds {
   allAds: IAd[];
+  comments: IComment[];
   searchText: string;
   isOpenedComments: boolean;
   isOpenedChangingPassword: boolean;
@@ -14,6 +15,7 @@ interface IAds {
 
 const initialState: IAds = {
   allAds: [],
+  comments: [],
   searchText: '',
   isOpenedComments: false,
   isOpenedChangingPassword: false,
@@ -29,6 +31,11 @@ export const adsSlice = createSlice({
       const { ads } = action.payload;
 
       state.allAds = ads;
+    },
+    setComments(state, action: PayloadAction<{ comments: IComment[] }>) {
+      const { comments } = action.payload;
+
+      state.comments = comments;
     },
     setSearchText(state, action: PayloadAction<{ searchText: string }>) {
       const { searchText } = action.payload;
@@ -61,6 +68,7 @@ export const adsSlice = createSlice({
 export const {
   setSearchText,
   setAllAds,
+  setComments,
   setIsOpenedComments,
   setIsOpenedChangingPassword,
   setIsOpenedNewAdv,

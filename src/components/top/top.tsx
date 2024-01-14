@@ -22,7 +22,13 @@ export const Top: FC<ITop> = ({ currentLocation, children }) => {
       </Styled.TopLogo>
       { currentLocation === '/' ? children : (
         <Styled.TopButtonBox>
-          <Button text="Вернуться на главную" type="button" onClick={ () => navigate('/', { replace: true }) } />
+          <Button
+            text="Вернуться на главную"
+            type="button"
+            onClick={ () => {
+              navigate('/', { replace: true });
+            } }
+          />
         </Styled.TopButtonBox>
       ) }
     </Styled.Top>

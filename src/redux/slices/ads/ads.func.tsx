@@ -10,7 +10,7 @@ export const adsApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: process.env.REACT_APP_API_URL,
   }),
-  tagTypes: ['Ads', 'Comments'],
+  tagTypes: ['Ads', 'Ad', 'Comments'],
   endpoints: (builder) => ({
     getAllAds: builder.query<IAd[], void>({
       query: () => '/ads',
@@ -18,9 +18,10 @@ export const adsApi = createApi({
     }),
     getAdById: builder.query<IAd, string>({
       query: (id: string) => `/ads/${id}`,
+      providesTags: ['Ad'],
     }),
-    getCommentsById: builder.query<IComment[], string>({
-      query: (id: string) => `/ads/${id}/comments`,
+    getCommentsById: builder.query<IComment[], number>({
+      query: (id: number) => `/ads/${id}/comments`,
       providesTags: ['Comments'],
     }),
     getSellerAdsByUserId: builder.query<IAd[], string>({
@@ -45,6 +46,7 @@ export const adsProtectedApi = apiBaseSlice.injectEndpoints({
           'Content-Type': 'application/json',
         },
       }),
+      invalidatesTags: ['Ad'],
     }),
     changeCurrentAd: builder.mutation({
       query: (args: { body: IRequestNewAd; id: number }) => ({
@@ -55,6 +57,7 @@ export const adsProtectedApi = apiBaseSlice.injectEndpoints({
           'Content-Type': 'application/json',
         },
       }),
+      invalidatesTags: ['Ad'],
     }),
     addImageToAdv: builder.mutation({
       query: (args: { formData: object; id: number }) => ({
@@ -62,6 +65,7 @@ export const adsProtectedApi = apiBaseSlice.injectEndpoints({
         method: 'POST',
         body: args.formData,
       }),
+      invalidatesTags: ['Ad'],
     }),
     deleteCurrentAd: builder.mutation({
       query: (id: number) => ({
@@ -71,6 +75,7 @@ export const adsProtectedApi = apiBaseSlice.injectEndpoints({
           'Content-Type': 'application/json',
         },
       }),
+      invalidatesTags: ['Ad'],
     }),
     deleteImageFromAdv: builder.mutation({
       query: (args: { url: string; id: number }) => ({
@@ -80,6 +85,18 @@ export const adsProtectedApi = apiBaseSlice.injectEndpoints({
           'Content-Type': 'application/json',
         },
       }),
+      invalidatesTags: ['Ad'],
+    }),
+    addNewComment: builder.mutation({
+      query: (args: { body: { text: string }; id: number }) => ({
+        url: `/ads/${args.id}/comments`,
+        method: 'POST',
+        body: args.body,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }),
+      invalidatesTags: ['Comments'],
     }),
   }),
 });
@@ -98,4 +115,5 @@ export const {
   useAddImageToAdvMutation,
   useDeleteCurrentAdMutation,
   useDeleteImageFromAdvMutation,
+  useAddNewCommentMutation,
 } = adsProtectedApi;

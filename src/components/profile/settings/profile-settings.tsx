@@ -64,7 +64,6 @@ export const ProfileSettings: FC<IProfileSettings> = ({ user }) => {
         dispatch(setNewUserState({ userState: { id: data.id, username: data.name } }));
         // eslint-disable-next-line no-alert
         alert('Данные обновлены');
-        window.location.reload();
       })
       .catch(() => {
         setIsWaiting(false);
@@ -87,7 +86,6 @@ export const ProfileSettings: FC<IProfileSettings> = ({ user }) => {
         const userData = Object.values(data)[0];
 
         setAvatar(userData.avatar);
-        window.location.reload();
       });
     }
   };

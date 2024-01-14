@@ -163,6 +163,7 @@ export const ContentCommentAva = styled.div`
     height: 40px;
     border-radius: 50%;
     background: #f0f0f0;
+    overflow: hidden;
 `;
 
 export const ContentCommentAuthor = styled.p`

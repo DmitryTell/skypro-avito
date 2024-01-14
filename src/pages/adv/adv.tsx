@@ -17,7 +17,7 @@ import {
 } from '@components/';
 import { Button, ShowPhoneButton, LoadingButton } from '@shared/';
 import { formatDate } from '@utils/';
-import { IAd, IComment } from '@interface/';
+import { IAd } from '@interface/';
 import {
   useGetAdByIdQuery,
   getStateAds,
@@ -25,6 +25,7 @@ import {
   getStateUser,
   useDeleteCurrentAdMutation,
   setIsOpenedEditAdv,
+  setComments,
 } from '@redux/';
 import { useAppSelector, useAppDispatch } from '@hook/';
 
@@ -39,11 +40,11 @@ export const Adv = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
-  const { isOpenedComments, isOpenedEditAdv } = useAppSelector(getStateAds);
+  const { comments, isOpenedComments, isOpenedEditAdv } = useAppSelector(getStateAds);
   const user = useAppSelector(getStateUser);
 
   const { data: adById, isLoading } = useGetAdByIdQuery(id || '0');
-  const { data: commentsById } = useGetCommentsByIdQuery(id || '0');
+  const { data: commentsById } = useGetCommentsByIdQuery(Number(id) || 0);
   const [deletAd] = useDeleteCurrentAdMutation();
 
   const [currentAd, setCurrentAd] = useState<IAd>({
@@ -70,7 +71,6 @@ export const Adv = () => {
       phone: '',
     },
   });
-  const [comments, setComments] = useState<IComment[] | []>([]);
   const [isWaiting, setIsWaiting] = useState<boolean>(false);
 
   const handleDeleteAd = () => {
@@ -81,7 +81,6 @@ export const Adv = () => {
         setIsWaiting(false);
 
         navigate('/', { replace: true });
-        window.location.reload();
       });
   };
 
@@ -95,9 +94,9 @@ export const Adv = () => {
     if (commentsById) {
       const result = Object.values(commentsById);
 
-      setComments(result);
+      dispatch(setComments({ comments: result }));
     }
-  }, [commentsById]);
+  }, [commentsById, dispatch]);
 
   return (
     <Container>
@@ -154,7 +153,7 @@ export const Adv = () => {
       { isOpenedComments && (
         <>
           <Backdrop />
-          <Comments comments={ comments } />
+          <Comments id={ currentAd.id } />
         </>
       ) }
       { isOpenedEditAdv && (

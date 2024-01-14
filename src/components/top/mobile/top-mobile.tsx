@@ -15,7 +15,13 @@ export const TopMobile: FC<ITopMobile> = ({ title }) => {
 
   return (
     <Styled.TopMobile>
-      <BackButton type="button" onClick={ () => navigate('/', { replace: true }) } />
+      <BackButton
+        type="button"
+        onClick={ () => {
+          navigate('/', { replace: true });
+          window.location.reload();
+        } }
+      />
       <Styled.TopMobileTitle>{ title }</Styled.TopMobileTitle>
     </Styled.TopMobile>
   );
