@@ -9,6 +9,8 @@ import {
   useSetUserAvatarMutation,
   setNewUserState,
   setIsOpenedChangingPassword,
+  setIsOpnenedChangedData,
+  setIsSuccess,
 } from '@redux/';
 import { useAppDispatch } from '@hook/';
 
@@ -62,14 +64,14 @@ export const ProfileSettings: FC<IProfileSettings> = ({ user }) => {
         setIsDisabled(true);
 
         dispatch(setNewUserState({ userState: { id: data.id, username: data.name } }));
-        // eslint-disable-next-line no-alert
-        alert('Данные обновлены');
+        dispatch(setIsOpnenedChangedData({ isOpenedChangedData: true }));
+        dispatch(setIsSuccess({ isSuccess: true }));
       })
       .catch(() => {
         setIsWaiting(false);
 
-        // eslint-disable-next-line no-alert
-        alert('Что-то пошло не так');
+        dispatch(setIsOpnenedChangedData({ isOpenedChangedData: true }));
+        dispatch(setIsSuccess({ isSuccess: false }));
       });
   };
 

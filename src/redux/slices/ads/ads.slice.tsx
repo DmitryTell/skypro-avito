@@ -11,6 +11,10 @@ interface IAds {
   isOpenedChangingPassword: boolean;
   isOpenedNewAdv: boolean;
   isOpenedEditAdv: boolean;
+  isOpenedSuccessRegister: boolean;
+  isOpenedSuccessChangedPassword: boolean;
+  isOpenedChangedData: boolean;
+  isSuccess: boolean;
 }
 
 const initialState: IAds = {
@@ -21,6 +25,10 @@ const initialState: IAds = {
   isOpenedChangingPassword: false,
   isOpenedNewAdv: false,
   isOpenedEditAdv: false,
+  isOpenedSuccessRegister: false,
+  isOpenedSuccessChangedPassword: false,
+  isOpenedChangedData: false,
+  isSuccess: true,
 };
 
 export const adsSlice = createSlice({
@@ -62,6 +70,26 @@ export const adsSlice = createSlice({
 
       state.isOpenedEditAdv = isOpenedEditAdv;
     },
+    setIsOpenedSuccessRegister(state, action: PayloadAction<{ isOpenedSuccessRegister: boolean }>) {
+      const { isOpenedSuccessRegister } = action.payload;
+
+      state.isOpenedSuccessRegister = isOpenedSuccessRegister;
+    },
+    setIsSuccess(state, action: PayloadAction<{ isSuccess: boolean }>) {
+      const { isSuccess } = action.payload;
+
+      state.isSuccess = isSuccess;
+    },
+    setIsOpenedSuccessChangedPassword(state, action: PayloadAction<{ isOpenedSuccessChangedPassword: boolean }>) {
+      const { isOpenedSuccessChangedPassword } = action.payload;
+
+      state.isOpenedSuccessChangedPassword = isOpenedSuccessChangedPassword;
+    },
+    setIsOpnenedChangedData(state, action: PayloadAction<{ isOpenedChangedData: boolean }>) {
+      const { isOpenedChangedData } = action.payload;
+
+      state.isOpenedChangedData = isOpenedChangedData;
+    },
   },
 });
 
@@ -73,4 +101,8 @@ export const {
   setIsOpenedChangingPassword,
   setIsOpenedNewAdv,
   setIsOpenedEditAdv,
+  setIsOpenedSuccessRegister,
+  setIsOpenedSuccessChangedPassword,
+  setIsOpnenedChangedData,
+  setIsSuccess,
 } = adsSlice.actions;
