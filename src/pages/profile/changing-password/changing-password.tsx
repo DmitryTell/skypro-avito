@@ -1,17 +1,19 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 
 import { HeaderMobile, FormModal, Footer } from '@components/';
 import { Input, Button, LoadingButton } from '@shared/';
 import { useAppDispatch } from '@hook/';
-import { removeAuthData, useChangePasswordMutation, setIsOpenedChangingPassword } from '@redux/';
+import {
+  setIsOpenedSuccessChangedPassword,
+  setIsOpenedChangingPassword,
+  useChangePasswordMutation,
+} from '@redux/';
 import { IRequestChangePassword } from '@interface/';
 
 import * as Styled from './changing-password.styled';
 
 
 export const ChangingPassword = () => {
-  const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
   const [changePassword] = useChangePasswordMutation();
@@ -40,13 +42,8 @@ export const ChangingPassword = () => {
       .then(() => {
         setIsWaiting(false);
 
-        // eslint-disable-next-line no-alert
-        alert('Пароль изменен, авторизуйтесь повторно');
-
-        dispatch(removeAuthData());
         dispatch(setIsOpenedChangingPassword({ isOpenedChangingPassword: false }));
-
-        navigate('/login', { replace: true });
+        dispatch(setIsOpenedSuccessChangedPassword({ isOpenedSuccessChangedPassword: true }));
       })
       .catch((error) => {
         console.error(error);

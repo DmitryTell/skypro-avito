@@ -1,16 +1,22 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 
 import { ContainerAuth } from '@layouts/';
-import { HeaderMobile, FormAuth, Footer } from '@components/';
+import {
+  HeaderMobile, FormAuth, Footer, Backdrop
+} from '@components/';
 import { Input, Button, LoadingButton } from '@shared/';
 import { registerUser } from '@api/';
+import { useAppDispatch, useAppSelector } from '@hook/';
+import { getStateAds, setIsOpenedSuccessRegister } from '@redux/';
 
+import { SuccessRegister } from './success-register/success-register';
 import * as Styled from './sign-up.styled';
 
 
 export const SignUp = () => {
-  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+
+  const { isOpenedSuccessRegister } = useAppSelector(getStateAds);
 
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
@@ -38,6 +44,11 @@ export const SignUp = () => {
 
     if (!password) {
       setErrorText('придумайте пароль');
+      return;
+    }
+
+    if (password.length < 8) {
+      setErrorText('слишком короткий пароль');
       return;
     }
 
@@ -70,10 +81,7 @@ export const SignUp = () => {
       setIsWaiting(false);
       setErrorText('');
 
-      // eslint-disable-next-line no-alert
-      alert('Вы успешно зарегистрировались, теперь авторизуйтесь');
-
-      navigate('/login', { replace: true });
+      dispatch(setIsOpenedSuccessRegister({ isOpenedSuccessRegister: true }));
     } catch (error) {
       if (error instanceof Error) {
         setIsWaiting(false);
@@ -107,6 +115,12 @@ export const SignUp = () => {
         </Styled.Buttons>
       </FormAuth>
       <Footer />
+      { isOpenedSuccessRegister && (
+        <>
+          <Backdrop />
+          <SuccessRegister />
+        </>
+      ) }
     </ContainerAuth>
   );
 };

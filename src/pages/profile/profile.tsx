@@ -19,12 +19,18 @@ import { IUser, IAd } from '@interface/';
 import { useAppSelector } from '@hook/';
 
 import { ChangingPassword } from './changing-password';
+import { SuccessChangedPassword } from './success-changed-password';
+import { ChangedData } from './changed-data';
 import * as Styled from './profile.styled';
 
 
 export const Profile = () => {
   const { username } = useAppSelector(getStateUser);
-  const { isOpenedChangingPassword } = useAppSelector(getStateAds);
+  const {
+    isOpenedChangingPassword,
+    isOpenedSuccessChangedPassword,
+    isOpenedChangedData,
+  } = useAppSelector(getStateAds);
 
   const { data: currentUser, isLoading, error } = useGetUserQuery();
   const { data: currentUserAds } = useGetCurrentUserAdsQuery();
@@ -77,6 +83,18 @@ export const Profile = () => {
         <>
           <Backdrop />
           <ChangingPassword />
+        </>
+      ) }
+      { isOpenedSuccessChangedPassword && (
+        <>
+          <Backdrop />
+          <SuccessChangedPassword />
+        </>
+      ) }
+      { isOpenedChangedData && (
+        <>
+          <Backdrop />
+          <ChangedData />
         </>
       ) }
     </Container>
