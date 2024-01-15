@@ -29,13 +29,12 @@ export const Comments: FC<IComments> = ({ id }) => {
   const [addComment] = useAddNewCommentMutation();
 
   const [text, setText] = useState<string>('');
+  const [error, setError] = useState<string | null>(null);
   const [isWaiting, setIsWaiting] = useState<boolean>(false);
 
   const handleAddComment = () => {
     if (!isAuth) {
-      // eslint-disable-next-line no-alert
-      alert('Только авторизованные пользователи могут оставлять комментарии');
-
+      setError('Только авторизованные пользователи могут оставлять комментарии');
       setText('');
       return;
     }
@@ -71,6 +70,11 @@ export const Comments: FC<IComments> = ({ id }) => {
                 value={ text }
                 onChange={ (e) => setText(e.target.value) }
               />
+              { error && (
+                <Styled.ErrorBox>
+                  <Styled.ErrorText>{ error }</Styled.ErrorText>
+                </Styled.ErrorBox>
+              ) }
               <Styled.ContentFormButtonBox>
                 { isWaiting
                   ? <LoadingButton />

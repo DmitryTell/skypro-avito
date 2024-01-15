@@ -106,6 +106,17 @@ export const ContentFormArea = styled.textarea`
     }
 `;
 
+export const ErrorBox = styled.div`
+    padding: 15px 20px;
+`;
+
+export const ErrorText = styled.span`
+    color: #ff0000;
+    font-size: 22px;
+    font-weight: 400;
+    line-height: 200%;
+`;
+
 export const ContentFormButtonBox = styled.div`
     width: 181px;
     height: 50px;
